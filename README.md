@@ -1,7 +1,7 @@
 Hey there! This is the (_future_) home of our extensions marketplace!
 
-  * **[Components](/readmeio/extensions/)**: Some MDX components to make your docs more interactive!
-  * **[Integrations](/readmeio/extensions/)**: Integrations for things like analytics and other similar services.
+  * **[Components](/components)**: Some MDX components to make your docs more interactive!
+  * **[Integrations](/integrations)**: Integrations for things like analytics and other similar services.
   * _More coming soon_
 
 # Contribution Guide
