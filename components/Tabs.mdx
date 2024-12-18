@@ -1,0 +1,42 @@
+---
+title: Tab Component
+version: 1.0
+author: Gregory Koberger
+---
+
+import React, { useState } from 'react';
+
+export const Tabs = ({ children }) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <div className="p-6 max-w-lg mx-auto">
+      <div className="flex space-x-2 mb-4 border-b-2 border-gray-300">
+        {React.Children.map(children, (child, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveTab(index)}
+            className={`px-4 py-2 text-sm font-medium transition-colors duration-300 ${
+              activeTab === index
+                ? 'bg-blue-600 text-white border-b-2 border-blue-600'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            } rounded-t-md`}
+          >
+            {child.props.title}
+          </button>
+        ))}
+      </div>
+      <div className="p-6 border rounded-b-md bg-white shadow-md outline outline-2 outline-gray-200">
+        {children[activeTab]}
+      </div>
+    </div>
+  );
+};
+
+export const Tab = ({ children }) => <div>{children}</div>;
+
+<Tabs>
+  <Tab title="Tab 1">Content for Tab 1</Tab>
+  <Tab title="Tab 2">Content for Tab 2</Tab>
+  <Tab title="Tab 3">Content for Tab 3</Tab>
+</Tabs>
