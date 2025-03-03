@@ -1,7 +1,7 @@
 ReadMe Marketplace <img align="right" width="25%" src="https://owlbertsio-resized.s3.amazonaws.com/Blocks.psd.full.png" />
 ===
 
-Welcome to the Marketplace, where you can find pre-made, interactive MDX components that you can use to customize your ReadMe docs! Browse through [the `components/` directory][components], or [contribute](#contributing) a component by opening a PR.
+Welcome to the Marketplace, where you can find pre-made, interactive MDX components that you can use to customize your ReadMe docs! Browse through [the `components/` directory][components], or [contribute](#contributing) a component by opening a pull request.
 
 ### Using a Component
 
