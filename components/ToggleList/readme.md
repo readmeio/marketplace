@@ -10,7 +10,7 @@ a joke!
 
 ## Usage
 
-There are two components that get used together: `ToggleList` and
+There are two components that get used together, `ToggleList` and
 `ToggleListItem`: 
 - `ToggleList` is the wrapper around all of your list items and
 can optionally accept any of the same props as a `ul` element.
