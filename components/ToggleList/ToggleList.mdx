@@ -1,0 +1,48 @@
+import { useState, useMemo} from 'react';
+
+export const ToggleList = ({ children, ...rest }) => {
+  return <ul style={{ padding: 0 }} {...rest}>{children}</ul>;
+};
+
+export const ToggleListItem = ({ title, children, ...rest }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const contentId = useMemo(() => {
+    return `toggle-content-${Date.now()}`;
+  }, []);
+
+  return (
+    <li className="list-none" {...rest}>
+      <div className="flex flex-row gap-2 items-center">
+        <button
+          aria-controls={contentId}
+          aria-expanded={isOpen}
+          aria-label={isOpen ? 'Close' : 'Open'}
+          className="h-6 w-6 flex items-center justify-center bg-transparent border-none cursor-pointer"
+          onClick={() => setIsOpen(prev => !prev)}
+          type="button"
+        >
+          <i
+            aria-label=""
+            className={`${isOpen ? 'rotate-90 ' : ''} transition-all transform fa-regular fa-chevron-right`}
+          />
+        </button>
+        <span>{title}</span>
+      </div>
+      {!!isOpen && (
+        <div className="ml-8 mt-2" id={contentId}>
+          {children}
+        </div>
+      )}
+    </li>
+  );
+};
+
+<ToggleList>
+  <ToggleListItem title="What type of books do owls like to read?">
+    Hoooo-dunnits 🔎
+  </ToggleListItem>
+  <ToggleListItem title="What’s an owl’s favorite drink?">
+    Hoot beer 🥤
+  </ToggleListItem>
+</ToggleList>
