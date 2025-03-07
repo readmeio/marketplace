@@ -1,0 +1,29 @@
+import React from 'react';
+
+export const Compatibility = ({ title, subtitle, plans }) => {
+  /* NOTE: Needs mobile and darkmode support still! Waiting on RM-12182 */
+  const isVertical = Object.keys(plans).length > 4;
+
+  return (
+    <div className="bg-yellow-50 border border-yellow-200 rounded-lg flex">
+      <div className="bg-yellow-100 py-3 px-4 border-0 border-r-1 border-yellow-200 rounded-l-lg max-w-xs flex-shrink-0">
+        <strong className="font-bold text-md">{title}</strong>
+        {subtitle && <p className="text-xs" style={{"margin-bottom": "0px"}}>{subtitle}</p>}
+      </div>
+      <div className={`flex flex-grow divide-yellow-200 ${isVertical ? 'flex-col divide-y' : 'divide-x'}`}>
+        {Object.entries(plans).map(([name, isCompatible]) => (
+          <div key={name} className="flex items-center py-3 px-4 w-full">
+            <i
+              className={`text-xl mr-2 ${
+                isCompatible ? 'fa-regular fa-circle-check text-green-500' : 'fa-regular fa-circle-xmark opacity-30'
+              }`}
+            ></i>
+            <span className={`font-semibold text-sm ${isCompatible ? "" : "opacity-60"}`}>{name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+<Compatibility title="Feature Name" subtitle="This is a description of the feature" plans={{ "Free": false, "Business": true, "Enterprise": true }} />
