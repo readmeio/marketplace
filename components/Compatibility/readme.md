@@ -4,7 +4,7 @@
 
 If you have features that aren't available on every plan or configuration, this module is for you! You can list out plans and a true/false to indicate if it's available.
 
-*Coming Soon: Mobile support, darkmode, more options *
+*Coming Soon: Mobile support, darkmode, more options*
 
 ![Compatibility](compat.png)
 
