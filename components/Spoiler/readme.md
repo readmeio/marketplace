@@ -1,10 +1,10 @@
 # Spoiler Component
 
-A simple MDX component to conceal content behind a clickable overlay—perfect for hiding spoilers or sensitive information until the user chooses to reveal it.
+Conceal content behind a clickable overlay—perfect for hiding spoilers or sensitive information until the user chooses to reveal it.
 
 ## Usage
 
-```jsx
+```mdx
 <Spoiler>
   Click to reveal the spoiler!
 </Spoiler>
@@ -14,7 +14,7 @@ A simple MDX component to conceal content behind a clickable overlay—perfect f
 
 Customize the appearance and animation:
 
-```jsx
+```mdx
 <Spoiler overlayColor="gray" fadeDuration={1000}>
   Spoiler text with custom settings.
 </Spoiler>
