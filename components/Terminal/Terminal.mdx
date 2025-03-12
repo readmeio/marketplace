@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export const Terminal = ({ children }) => {
   /* Future potential enhancement: Support non-text children! */
-  let lines = children.trim().split('\n');
+  let lines = children.trim().split("\n");
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
   const copyToClipboard = (text, index) => {
-    navigator.clipboard.writeText(text.trim().slice(1).trim()).then(() => {
-      setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 1000); // Reset after 1 second
-    }).catch(err => {
-      console.error('Failed to copy:', err);
-    });
+    navigator.clipboard
+      .writeText(text.trim().slice(1).trim())
+      .then(() => {
+        setCopiedIndex(index);
+        setTimeout(() => setCopiedIndex(null), 500); // Reset after 1 second
+      })
+      .catch((err) => {
+        console.error("Failed to copy:", err);
+      });
   };
 
   return (
@@ -28,7 +31,7 @@ export const Terminal = ({ children }) => {
       {/* Terminal Content */}
       <div className="mt-6 pl-2">
         {lines.map((line, index) => {
-          const isInput = line.trim().startsWith('$');
+          const isInput = line.trim().startsWith("$");
           const content = isInput ? line.trim().slice(1).trim() : line.trim();
 
           return (
@@ -39,22 +42,32 @@ export const Terminal = ({ children }) => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {isInput && (
-                <span
-                  className="text-gray-400 select-none"
-                  aria-hidden="true"
-                >
+                <span className="text-gray-400 select-none" aria-hidden="true">
                   $&nbsp;
                 </span>
               )}
-              <span className={isInput ? ` ${isInput && hoveredIndex === index ? 'text-white' : 'text-gray-200'}` : 'text-indigo-300'}>
+              <span
+                className={
+                  isInput
+                    ? copiedIndex === index
+                      ? "text-green-500"
+                      : hoveredIndex === index
+                        ? "text-white"
+                        : "text-gray-200"
+                    : "text-indigo-300"
+                }
+              >
+                {" "}
                 {content}
               </span>
-              {isInput && hoveredIndex === index && (
+              {isInput && (hoveredIndex === index || copiedIndex === index) && (
                 <span
-                  className={`ml-2 text-xs cursor-pointer ${copiedIndex === index ? 'text-green-500' : 'text-gray-400 hover:text-white'}`}
+                  className={`ml-2 text-xs cursor-pointer ${copiedIndex === index ? "text-green-500" : "text-gray-400 hover:text-white"}`}
                   onClick={() => copyToClipboard(line, index)}
                 >
-                  <i className={`fa-regular fa-${copiedIndex === index ? 'check' : 'copy'}`} />
+                  <i
+                    className={`fa-regular fa-${copiedIndex === index ? "check" : "copy"}`}
+                  />
                 </span>
               )}
             </div>
@@ -66,10 +79,9 @@ export const Terminal = ({ children }) => {
 };
 
 <Terminal>{`
-  $ npx run this is the input
+  $ npx run command
   This is the response
-
   $ inputs start with a dollar sign
-  outputs start with nothing
+  outputs start with no prefix
   and can be multiline
 `}</Terminal>
