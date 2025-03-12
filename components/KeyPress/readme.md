@@ -4,10 +4,10 @@ The `KeyPress` component allows you to render children elements based on a speci
 
 ## Usage
 
-```jsx
+```mdx
 <KeyPress keyCombo="Ctrl+d">
   <div>You hit control + d. GREAT JOB!!!!</div>
-</KeyPress>;
+</KeyPress>
 ```
 
 ## Props
@@ -18,7 +18,7 @@ The `KeyPress` component allows you to render children elements based on a speci
 
 ## Example
 
-```jsx
+```mdx
 <KeyPress keyCombo="Ctrl+d" onPress={() => alert('Control + D pressed')} />
 ```
 
