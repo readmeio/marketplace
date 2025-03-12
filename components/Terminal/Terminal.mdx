@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const Terminal = ({ children }) => {
   /* Future potential enhancement: Support non-text children! */
-  let lines = children.trim().split("\n");
+  const lines = children.trim().split('\n');
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
@@ -15,7 +15,7 @@ export const Terminal = ({ children }) => {
         setTimeout(() => setCopiedIndex(null), 500); // Reset after 1 second
       })
       .catch((err) => {
-        console.error("Failed to copy:", err);
+        console.error('Failed to copy:', err);
       });
   };
 
@@ -31,13 +31,13 @@ export const Terminal = ({ children }) => {
       {/* Terminal Content */}
       <div className="mt-6 pl-2">
         {lines.map((line, index) => {
-          const isInput = line.trim().startsWith("$");
+          const isInput = line.trim().startsWith('$');
           const content = isInput ? line.trim().slice(1).trim() : line.trim();
 
           return (
             <div
               key={index}
-              className={`flex py-1 text-sm`}
+              className={'flex py-1 text-sm'}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -50,23 +50,23 @@ export const Terminal = ({ children }) => {
                 className={
                   isInput
                     ? copiedIndex === index
-                      ? "text-yellow-200"
+                      ? 'text-yellow-200'
                       : hoveredIndex === index
-                        ? "text-white"
-                        : "text-gray-200"
-                    : "text-indigo-300"
+                        ? 'text-white'
+                        : 'text-gray-200'
+                    : 'text-indigo-300'
                 }
               >
-                {" "}
+                {' '}
                 {content}
               </span>
               {isInput && (hoveredIndex === index || copiedIndex === index) && (
                 <span
-                  className={`ml-2 text-xs cursor-pointer ${copiedIndex === index ? "text-green-500" : "text-gray-400 hover:text-white"}`}
+                  className={`ml-2 text-xs cursor-pointer ${copiedIndex === index ? 'text-green-500' : 'text-gray-400 hover:text-white'}`}
                   onClick={() => copyToClipboard(line, index)}
                 >
                   <i
-                    className={`fa-regular fa-${copiedIndex === index ? "check" : "copy"}`}
+                    className={`fa-regular fa-${copiedIndex === index ? 'check' : 'copy'}`}
                   />
                 </span>
               )}
