@@ -50,7 +50,7 @@ export const Terminal = ({ children }) => {
                 className={
                   isInput
                     ? copiedIndex === index
-                      ? "text-green-500"
+                      ? "text-yellow-200"
                       : hoveredIndex === index
                         ? "text-white"
                         : "text-gray-200"
@@ -81,6 +81,7 @@ export const Terminal = ({ children }) => {
 <Terminal>{`
   $ npx run command
   This is the response
+
   $ inputs start with a dollar sign
   outputs start with no prefix
   and can be multiline
