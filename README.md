@@ -13,11 +13,11 @@ Learn more about ReadMe's MDX features [here][mdx docs]!
 
 If you're looking on where to start, check these out!
 
-📊 **[`<Compatibility>`][components/Compatibility]**: Show what plans a feature is available for, or explain what user roles have access to it.
-🏞️ **[`<SnapSlider>`][components/SnapSlider]**: Let users scroll through a handful of images, rather than having to pick just one!
-👩🏻‍💻 **[`<Terminal>`][components/Terminal]**: A faux terminal that shows input and output, as well makes it easy to copy each command.
-👆**[`<KeyPress>`][components/KeyPress]**: Show some special content if the user hits a key-combo of your choice.
-🛠️ **[`<ExampleComponent>`][components/ExampleComponent]**: If you're looking to build your own and need a simple example component, this is a great place to start!
+ * 📊 **[`<Compatibility>`](./tree/main/components/Compatibility)**: Show what plans a feature is available for, or explain what user roles have access to it.
+ * 🏞️ **[`<SnapSlider>`](./tree/main/components/SnapSlider)**: Let users scroll through a handful of images, rather than having to pick just one!
+ * 👩🏻‍💻 **[`<Terminal>`](./tree/main/components/Terminal)**: A faux terminal that shows input and output, as well makes it easy to copy each command.
+ * 👆**[`<KeyPress>`](./tree/main/components/KeyPress)**: Show some special content if the user hits a key-combo of your choice.
+ * 🛠️ **[`<ExampleComponent>`](./tree/main/components/ExampleComponent)**: If you're looking to build your own and need a simple example component, this is a great place to start!
 
 ### Contributing
 
