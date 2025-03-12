@@ -1,0 +1,100 @@
+import React, { useState, useMemo } from "react";
+
+export const SimpleStepperComponent = ({ children }) => {
+  console.log("Children received:", children);
+
+  const steps = useMemo(() => (Array.isArray(children) ? children : [children]), [children]);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const containerStyle = {
+    maxWidth: "600px",
+    margin: "40px auto",
+    padding: "20px",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    textAlign: "center",
+  };
+
+  const indicatorContainerStyle = { marginBottom: "20px" };
+
+  const indicatorStyle = (active) => ({
+    display: "inline-block",
+    width: "30px",
+    height: "30px",
+    lineHeight: "30px",
+    borderRadius: "50%",
+    backgroundColor: active ? "#5A3E8B" : "#ddd", // Updated active color for better contrast
+    color: active ? "white" : "black",
+    margin: "0 5px",
+    fontWeight: "bold",
+    boxShadow: active ? "0px 0px 10px rgba(90, 62, 139, 0.6)" : "none", // Reflects new active color
+    transition: "all 0.3s ease-in-out",
+  });
+
+  const buttonStyle = {
+    padding: "8px 16px",
+    margin: "10px",
+    border: "none",
+    borderRadius: "4px",
+    backgroundColor: "#5A3E8B", // Updated button background for better contrast
+    color: "white",
+    cursor: "pointer",
+  };
+
+  const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
+  const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+
+  return (
+    <div style={containerStyle}>
+      <div style={indicatorContainerStyle}>
+        {steps.map((_, index) => (
+          <span key={index} style={indicatorStyle(index === currentStep)}>
+            {index + 1}
+          </span>
+        ))}
+      </div>
+      <div aria-live="polite">
+        {steps.length > 0 ? <>{steps[currentStep]}</> : <></>}
+      </div>
+      <div>
+        <button
+          type="button"
+          style={buttonStyle}
+          onClick={handlePrev}
+          disabled={currentStep === 0}
+          aria-label="Previous Step"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          style={buttonStyle}
+          onClick={handleNext}
+          disabled={currentStep === steps.length - 1}
+          aria-label="Next Step"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export const SimpleStep = ({ header, children }) => (
+  <div>
+    <h2>{header}</h2>
+    <div>{children}</div>
+  </div>
+);
+
+<SimpleStepperComponent>
+  <SimpleStep header="Step 1: Plan">
+    Plan your documentation and gather resources.
+  </SimpleStep>
+  <SimpleStep header="Step 2: Write">
+    Write effective and clear documentation.
+  </SimpleStep>
+  <SimpleStep header="Step 3: Review">
+    Review and refine your content.
+  </SimpleStep>
+</SimpleStepperComponent>
