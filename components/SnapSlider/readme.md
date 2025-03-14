@@ -2,7 +2,7 @@
 
 A `<SnapSlider>` component that uses [scroll snapping](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap) to generate a gallery interface.
 
-<img src=https://github.com/user-attachments/assets/7cb668ee-0885-40ed-b504-2095779fbae9>
+<img src="https://github.com/user-attachments/assets/d337161f-515a-4e57-9307-322eea6468fc">
 
 ### Usage
 
