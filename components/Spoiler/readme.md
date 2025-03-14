@@ -5,9 +5,7 @@ Conceal content behind a clickable overlay—perfect for hiding spoilers or sens
 ## Usage
 
 ```mdx
-<Spoiler>
-  Click to reveal the spoiler!
-</Spoiler>
+<Spoiler>Click to reveal the spoiler!</Spoiler>
 ```
 
 ### Customization
@@ -22,8 +20,7 @@ Customize the appearance and animation:
 
 ### Props
 
-| Prop           | Type   | Default   | Description                             |
-|----------------|--------|-----------|-----------------------------------------|
+| Prop           | Type   | Default   | Description                                |
+| -------------- | ------ | --------- | ------------------------------------------ |
 | `overlayColor` | string | `'black'` | Color of the overlay covering the content. |
-| `fadeDuration` | number | `500`     | Duration of fade-out effect (ms).       |
-
+| `fadeDuration` | number | `500`     | Duration of fade-out effect (ms).          |

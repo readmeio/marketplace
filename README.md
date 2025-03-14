@@ -1,5 +1,4 @@
-ReadMe Marketplace <img align="right" width="25%" src="https://owlbertsio-resized.s3.amazonaws.com/Blocks.psd.full.png" />
-===
+# ReadMe Marketplace <img align="right" width="25%" src="https://owlbertsio-resized.s3.amazonaws.com/Blocks.psd.full.png" />
 
 Welcome to the Marketplace, where you can find pre-made, interactive MDX components that you can use to customize your ReadMe docs! Browse through [the `components/` directory][components], or [contribute](#contributing) a component by opening a pull request.
 
@@ -13,11 +12,11 @@ Learn more about ReadMe's MDX features [here][mdx docs]!
 
 If you're looking on where to start, check these out!
 
- * 📊 **[`<Compatibility>`](./components/Compatibility)**: Show what plans a feature is available for, or explain what user roles have access to it.
- * 🏞️ **[`<SnapSlider>`](./components/SnapSlider)**: Let users scroll through a handful of images, rather than having to pick just one!
- * 👩🏻‍💻 **[`<Terminal>`](./components/Terminal)**: A faux terminal that shows input and output, as well makes it easy to copy each command.
- * 👆 **[`<KeyPress>`](./components/KeyPress)**: Show some special content if the user hits a key-combo of your choice.
- * 🛠️ **[`<ExampleComponent>`](./components/ExampleComponent)**: If you're looking to build your own and need a simple example component, this is a great place to start!
+- 📊 **[`<Compatibility>`](./components/Compatibility)**: Show what plans a feature is available for, or explain what user roles have access to it.
+- 🏞️ **[`<SnapSlider>`](./components/SnapSlider)**: Let users scroll through a handful of images, rather than having to pick just one!
+- 👩🏻‍💻 **[`<Terminal>`](./components/Terminal)**: A faux terminal that shows input and output, as well makes it easy to copy each command.
+- 👆 **[`<KeyPress>`](./components/KeyPress)**: Show some special content if the user hits a key-combo of your choice.
+- 🛠️ **[`<ExampleComponent>`](./components/ExampleComponent)**: If you're looking to build your own and need a simple example component, this is a great place to start!
 
 ### Contributing
 

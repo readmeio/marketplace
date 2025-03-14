@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "@readme/eslint-config",
+    "@readme/eslint-config/react",
+  ],
+  "root": true,
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "babelrc": false,
+      "configFile": false,
+      "presets": ["@babel/preset-react"],
+    },
+  },
+  "rules": {
+    "import/no-unresolved": ["error", { "ignore": ["react"] }],
+    "no-console": "off",
+
+    // Not really necessary to have on for this repository.
+    "react/jsx-sort-props": "off",
+
+    // These rules do not apply with the way we're utilizing React within MDX components.
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+  }
+}
