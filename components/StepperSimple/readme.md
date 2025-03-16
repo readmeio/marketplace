@@ -1,4 +1,4 @@
-# 🪜 Simple Stepper Component
+# 🪜 Simple Stepper
 
 The **Simple Stepper** component provides basic "Next" and "Back" navigation for stepping through content.
 
@@ -13,7 +13,7 @@ The **Simple Stepper** component provides basic "Next" and "Back" navigation for
 ## 📦 Usage
 
 ```mdx
-<SimpleStepperComponent>
+<SimpleStepper>
   <SimpleStep header="Step 1: Plan">
     Plan your documentation and gather resources.
   </SimpleStep>
@@ -23,5 +23,5 @@ The **Simple Stepper** component provides basic "Next" and "Back" navigation for
   <SimpleStep header="Step 3: Review">
     Review and refine your content.
   </SimpleStep>
-</SimpleStepperComponent>
+</SimpleStepper>
 ```

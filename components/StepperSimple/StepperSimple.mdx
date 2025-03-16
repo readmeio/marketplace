@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 
-export const SimpleStepperComponent = ({ children }) => {
+export const SimpleStepper = ({ children }) => {
   console.log("Children received:", children);
 
   const steps = useMemo(() => (Array.isArray(children) ? children : [children]), [children]);
@@ -87,7 +87,7 @@ export const SimpleStep = ({ header, children }) => (
   </div>
 );
 
-<SimpleStepperComponent>
+<SimpleStepper>
   <SimpleStep header="Step 1: Plan">
     Plan your documentation and gather resources.
   </SimpleStep>
@@ -97,4 +97,4 @@ export const SimpleStep = ({ header, children }) => (
   <SimpleStep header="Step 3: Review">
     Review and refine your content.
   </SimpleStep>
-</SimpleStepperComponent>
+</SimpleStepper>
