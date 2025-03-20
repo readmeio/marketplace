@@ -33,15 +33,9 @@ export function KeyPress({ keyCombo, children, onPress = () => {} }) {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [keys])
-
-  const defaultInstruction = (
-    <>
-      Press <strong>{keyCombo}</strong>
-    </>
-  )
+  }, [keys, onPress])
 
   return isVisible ? children : null
 }
 
-<KeyPress keyCombo='Ctrl+d'> You hit control + d. GREAT JOB!!!! </KeyPress>
+<KeyPress keyCombo='Ctrl+d'>You hit control + d. GREAT JOB!!!!</KeyPress>

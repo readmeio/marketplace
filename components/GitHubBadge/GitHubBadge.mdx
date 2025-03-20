@@ -1,8 +1,5 @@
-import React from "react";
-
-export const GitHubBadge = ({ owner, repo, workflow, branch = "main" }) => {
+export const GitHubBadge = ({ owner, repo, workflow, branch = 'main' }) => {
   const badgeUrl = `https://github.com/${owner}/${repo}/actions/workflows/${workflow}/badge.svg?branch=${branch}`;
-
   return (
      <img src={badgeUrl} alt={`${workflow} status`} className="h-6" />
   );
