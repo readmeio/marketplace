@@ -27,7 +27,13 @@ export const Spoiler = ({ children, overlayColor = 'black', fadeDuration = 500 }
   return (
     <div style={containerStyle}>
       {children}
-      <div style={overlayStyle} onClick={handleClick} />
+      <div
+        style={overlayStyle}
+        onClick={handleClick}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleClick(e)}
+        role="button"
+        tabIndex={0}
+      />
     </div>
   );
 };
