@@ -1,7 +1,3 @@
----
-title: "PostList: Dynamic Data Fetching Component"
----
-
 import { useState, useEffect } from 'react';
 
 export const PostList = () => {
@@ -33,28 +29,58 @@ export const PostList = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-10">
-        <div className="flex flex-col items-center">
-          {/* Custom rotating loader */}
-          <div className="animate-spin inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-          <span className="mt-4 text-gray-600 font-medium text-lg">Loading posts...</span>
+      <>
+        {/* Inline keyframes for spinner animation */}
+        <style>
+          {`
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          `}
+        </style>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2.5rem' }}>
+          <div style={{ position: 'relative', width: '48px', height: '48px', marginBottom: '1rem' }}>
+            {/* Static background circle */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              border: '4px solid #e2e8f0',
+              borderRadius: '50%'
+            }}></div>
+            {/* Rotating overlay */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              border: '4px solid #3b82f6',
+              borderTopColor: 'transparent',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }}></div>
+          </div>
+          <span style={{ color: '#4b5563', fontSize: '1.125rem', fontWeight: 500 }}>Loading posts...</span>
         </div>
-      </div>
+      </>
     );
   }
 
   if (error) {
-    return <div className="text-red-600 text-center py-10">{error}</div>;
+    return <div style={{ color: '#ef4444', textAlign: 'center', padding: '2.5rem' }}>{error}</div>;
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Post List</h1>
-      <ul className="space-y-6">
+    <div style={{ maxWidth: '48rem', margin: '0 auto', padding: '2rem' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 700, textAlign: 'center', marginBottom: '1.5rem' }}>Post List</h1>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
         {posts.map(post => (
-          <li key={post.id} className="p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-            <p className="text-gray-700">{post.body}</p>
+          <li key={post.id} style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem', boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)', marginBottom: '1.5rem' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem' }}>{post.title}</h2>
+            <p style={{ color: '#374151' }}>{post.body}</p>
           </li>
         ))}
       </ul>
