@@ -1,0 +1,44 @@
+export const GitHubCallout = ({ type, children }) => {
+  let color;
+  let icon;
+  switch (type) {
+    case 'tip':
+      color = 'green';
+      icon = 'fa-lightbulb';
+     break;
+    case 'important':
+      color = 'purple';
+      icon = 'fa-message-exclamation';
+     break;
+    case 'warning':
+      color = 'yellow';
+      icon = 'fa-triangle-exclamation';
+     break;
+    case 'caution':
+      color = 'red';
+      icon = 'fa-stop';
+     break;
+    case 'note':
+    default:
+      color = 'blue';
+      icon = 'fa-circle-info';
+    break;
+  }
+
+  return (
+		<div className={`pl-3 border-l-1 border-${color}-500 dark:border-${color}-400`}>
+			<p className={`text-${color}-500 dark:text-${color}-400`}>
+				<i className={`fa-solid ${icon} mr-1`} /> {type.slice(0, 1).toUpperCase() + type.slice(1)}
+			</p>
+			<p>{children}</p>
+		</div>
+  );
+};
+
+<>
+<GitHubCallout type="note">Highlights information that users should take into account, even when skimming.</GitHubCallout>
+<GitHubCallout type="tip">Optional information to help a user be more successful.</GitHubCallout>
+<GitHubCallout type="important">Crucial information necessary for users to succeed.</GitHubCallout>
+<GitHubCallout type="warning">Critical content demanding immediate user attention due to potential risks.</GitHubCallout>
+<GitHubCallout type="caution">Negative potential consequences of an action.</GitHubCallout>
+</>
