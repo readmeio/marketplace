@@ -228,15 +228,4 @@ export const DataTables = ({ children }) => {
   );
 };
 
-export default DataTables;
-
-<>
-
-| Endpoint        | Method | Description                           | Parameters                         | Response Format |
-|-----------------|--------|---------------------------------------|------------------------------------|-----------------|
-| `/example`      | `FUN`  | **This is an example table!***        | This will **not** show on the page | Enjoy!          |
-| `/users`        | `GET`  | Retrieves a list of users             | `limit` (int), `offset` (int)      | JSON            |
-| `/users/{id}`   | `GET`  | Retrieves details of a specific user  | `id` (UUID)                        | JSON            |
-| `/users`        | `POST` | Creates a new user                    | `name` (string), `email` (string)  | JSON            |
-
-</>
+<DataTables />
