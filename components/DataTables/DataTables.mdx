@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from "react";
-// DataTable component wraps tables with DataTable features for MDX integration.
+import React, { useEffect, useRef } from 'react';
+
 export const DataTables = ({ children }) => {
-  // Ref for the container element to scope table initialization.
   const containerRef = useRef(null);
 
-  // Inline CSS styles for custom DataTable layout and controls.
   const dtCustomStyles = `
     .dt-flex-container { 
       display: flex;
@@ -30,11 +28,10 @@ export const DataTables = ({ children }) => {
     }
   `;
 
-  // Dynamically load an external script; resolves if already present.
   const loadScript = (src) =>
     new Promise((resolve, reject) => {
-      if (document.querySelector(`script[src="${src}"]`)) return resolve();
-      const script = Object.assign(document.createElement("script"), {
+      if (document.querySelector(`script[src='${src}']`)) return resolve();
+      const script = Object.assign(document.createElement('script'), {
         src,
         async: true,
         onload: resolve,
@@ -43,123 +40,110 @@ export const DataTables = ({ children }) => {
       document.body.appendChild(script);
     });
 
-  // Dynamically load an external CSS file if not already included.
   const loadCSS = (href) => {
-    if (!document.querySelector(`link[href="${href}"]`)) {
+    if (!document.querySelector(`link[href='${href}']`)) {
       document.head.appendChild(
-        Object.assign(document.createElement("link"), {
-          rel: "stylesheet",
+        Object.assign(document.createElement('link'), {
+          rel: 'stylesheet',
           href,
         })
       );
     }
   };
 
-  // Load all required dependencies for DataTable functionality.
   const loadDependencies = async () => {
-    await loadScript("https://code.jquery.com/jquery-3.6.0.min.js");
-    await loadScript("https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js");
-    await loadCSS("https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css");
+    await loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
+    await loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js');
+    await loadCSS('https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css');
 
-    // List of additional scripts (plugins/export libraries) to be loaded.
     const dependencies = [
-      "https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js",
-      "https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js",
-      "https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js",
-      "https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/pdfmake.min.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/vfs_fonts.js",
+      'https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js',
+      'https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js',
+      'https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js',
+      'https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/pdfmake.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/vfs_fonts.js',
     ];
     await Promise.all(dependencies.map(loadScript));
-    await loadCSS("https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css");
-  }; 
+    await loadCSS('https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css');
+  };
 
-  // Initialize a table element with DataTable functionality.
   const initializeTable = (table) => {
-    // Skip if table has been processed before.
-    if (table.getAttribute("data-dt-processed")) return;
-    table.setAttribute("data-dt-processed", "true");
-    table.setAttribute("data-original-html", table.innerHTML);
+    if (table.getAttribute('data-dt-processed')) return;
+    table.setAttribute('data-dt-processed', 'true');
+    table.setAttribute('data-original-html', table.innerHTML);
 
-    // Ensure each table has a unique ID for accessibility.
     if (!table.id) {
-      table.id = "data-table-" + Math.floor(Math.random() * 1000000);
+      table.id = `data-table-${Math.floor(Math.random() * 1000000)}`;
     }
 
-    // Locate the wrapper element for the table.
-    const wrapper = table.closest(".rdmd-table") || table.parentElement;
-    if (!wrapper) return; 
+    const wrapper = table.closest('.rdmd-table') || table.parentElement;
+    if (!wrapper) return;
 
-    // Reuse existing toggle button if it exists.
-    let trigger = wrapper.querySelector(`button[aria-controls="${table.id}"]`);
+    let trigger = wrapper.querySelector(`button[aria-controls='${table.id}']`);
     if (!trigger) {
-      // Create a toggle button to enable filtering options.
-      trigger = document.createElement("button");
+      trigger = document.createElement('button');
       trigger.innerHTML = '<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size: 12px;"></i>';
       Object.assign(trigger, {
-        type: "button",
-        title: "Enable Filter",
-        "aria-label": "Enable filtering options",
-        style: `position:absolute;top:0;right:0;cursor:pointer;z-index:9999;
-                border-radius:0 0 0 1px;color:#fff;
-                background:linear-gradient(rgb(86,184,255),rgba(1,142,245,0.79));
-                filter:saturate(1.15);display:block;border-block-width: 0;border:0;`,
+        type: 'button',
+        title: 'Enable Filter',
+        'aria-label': 'Enable filtering options',
+        style:
+          'position:absolute;top:0;right:0;cursor:pointer;z-index:9999;' +
+          'border-radius:0 0 0 1px;color:#fff;' +
+          'background:linear-gradient(rgb(86,184,255),rgba(1,142,245,0.79));' +
+          'filter:saturate(1.15);display:block;border-block-width: 0;border:0;',
       });
-      // Set accessibility attributes linking the button to the table.
-      trigger.setAttribute("aria-controls", table.id);
-      trigger.setAttribute("aria-expanded", "false");
+      trigger.setAttribute('aria-controls', table.id);
+      trigger.setAttribute('aria-expanded', 'false');
       wrapper.insertBefore(trigger, wrapper.firstChild);
     }
 
-    // Toggle button click: hides button and initializes DataTable filtering.
     trigger.onclick = () => {
-      trigger.style.display = "none"; // Hide toggle immediately
+      trigger.style.display = 'none';
+      if (table.getAttribute('data-filter-enabled')) return;
 
-      // Prevent re-initialization if filtering is already enabled.
-      if (table.getAttribute("data-filter-enabled")) return;
-
-      // Initialize DataTable with custom configuration.
       const dt = window.jQuery(table).DataTable({
         dom: "<'dt-flex-container'<'dt-search'f><'dt-buttons'B>>",
-        language: { search: "", searchPlaceholder: "Search Table:" },
+        language: { search: '', searchPlaceholder: 'Search Table:' },
         buttons: [
           {
-            extend: "colvis",
+            extend: 'colvis',
             text: '<i class="fa fa-columns"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Toggle column visibility" },
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Toggle column visibility' },
           },
           {
-            extend: "copy",
+            extend: 'copy',
             text: '<i class="fa fa-copy"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Copy table data" },
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Copy table data' },
           },
           {
-            extend: "csv",
+            extend: 'csv',
             text: '<i class="fa fa-file-csv"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Export table as CSV" },
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Export table as CSV' },
           },
           {
-            extend: "excel",
+            extend: 'excel',
             text: '<i class="fa fa-file-excel"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Export table as Excel" },
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Export table as Excel' },
           },
           {
-            extend: "pdf",
+            extend: 'pdf',
             text: '<i class="fa fa-file-pdf"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Export table as PDF" },
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Export table as PDF' },
           },
           {
-            extend: "print",
+            extend: 'print',
             text: '<i class="fa fa-print"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Print table" },
-            action: function () {
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Print table' },
+            action() {
               setTimeout(() => {
                 window.print();
               }, 100);
@@ -167,65 +151,55 @@ export const DataTables = ({ children }) => {
           },
           {
             text: '<i class="fa fa-ban"></i>',
-            className: "dt-btn",
-            attr: { "aria-label": "Disable filtering" },
-            action: function () {
-              // Remove DataTable enhancements and reset table state.
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Disable filtering' },
+            action() {
               dt.destroy();
-              table.innerHTML = table.getAttribute("data-original-html") || table.innerHTML;
-              table.removeAttribute("data-dt-processed");
-              table.removeAttribute("data-filter-enabled");
-              // Redisplay the toggle button to allow re-enabling.
-              trigger.style.display = "block";
-              trigger.setAttribute("aria-expanded", "false");
+              table.innerHTML = table.getAttribute('data-original-html') || table.innerHTML;
+              table.removeAttribute('data-dt-processed');
+              table.removeAttribute('data-filter-enabled');
+              trigger.style.display = 'block';
+              trigger.setAttribute('aria-expanded', 'false');
             },
           },
         ],
-        // After initialization, update the search input's accessibility label.
-        initComplete: function () {
-          const searchInput = document.querySelector(".dataTables_filter input");
+        initComplete() {
+          const searchInput = document.querySelector('.dataTables_filter input');
           if (searchInput) {
-            searchInput.setAttribute("aria-label", "Search table");
+            searchInput.setAttribute('aria-label', 'Search table');
           }
         },
       });
 
-      // Mark the table as having filtering enabled.
-      table.setAttribute("data-filter-enabled", "true");
-      trigger.setAttribute("aria-expanded", "true");
+      table.setAttribute('data-filter-enabled', 'true');
+      trigger.setAttribute('aria-expanded', 'true');
     };
   };
 
-  // On component mount, load dependencies and initialize tables.
   useEffect(() => {
     loadDependencies().then(() => {
-      // Function to initialize every table found within the component or in global .rdmd-table containers.
       const initializeAllTables = () => {
-        containerRef.current?.querySelectorAll("table").forEach(initializeTable);
-        document.querySelectorAll(".rdmd-table table").forEach(initializeTable);
+        containerRef.current?.querySelectorAll('table').forEach(initializeTable);
+        document.querySelectorAll('.rdmd-table table').forEach(initializeTable);
       };
 
-      // Initial table setup.
       initializeAllTables();
 
-      // Observe the DOM for any new table elements and reinitialize as needed.
       const observer = new MutationObserver(() => {
         initializeAllTables();
       });
       observer.observe(document.body, { childList: true, subtree: true });
 
-      // Disconnect the observer on component unmount.
       return () => observer.disconnect();
     });
-  }, []);
+  }, [loadDependencies]);
 
   return (
     <div ref={containerRef}>
-      {/* Inject custom DataTable CSS styles */}
       <style>{dtCustomStyles}</style>
       {children}
     </div>
   );
 };
 
-<DataTables />
+export default DataTables;
