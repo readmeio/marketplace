@@ -30,12 +30,17 @@ export const DataTables = ({ children }) => {
 
   const loadScript = (src) =>
     new Promise((resolve, reject) => {
-      if (document.querySelector(`script[src='${src}']`)) return resolve();
+      if (document.querySelector(`script[src='${src}']`)) {
+        resolve();
+        return;
+      }
       const script = Object.assign(document.createElement('script'), {
         src,
         async: true,
         onload: resolve,
-        onerror: () => reject(new Error(`Failed to load: ${src}`)),
+        onerror: () => {
+          reject(new Error(`Failed to load: ${src}`));
+        },
       });
       document.body.appendChild(script);
     });
@@ -49,24 +54,6 @@ export const DataTables = ({ children }) => {
         })
       );
     }
-  };
-
-  const loadDependencies = async () => {
-    await loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
-    await loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js');
-    await loadCSS('https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css');
-
-    const dependencies = [
-      'https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js',
-      'https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js',
-      'https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js',
-      'https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/pdfmake.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/vfs_fonts.js',
-    ];
-    await Promise.all(dependencies.map(loadScript));
-    await loadCSS('https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css');
   };
 
   const initializeTable = (table) => {
@@ -84,7 +71,8 @@ export const DataTables = ({ children }) => {
     let trigger = wrapper.querySelector(`button[aria-controls='${table.id}']`);
     if (!trigger) {
       trigger = document.createElement('button');
-      trigger.innerHTML = '<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size: 12px;"></i>';
+      trigger.innerHTML =
+        '<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size: 12px;"></i>';
       Object.assign(trigger, {
         type: 'button',
         title: 'Enable Filter',
@@ -155,7 +143,8 @@ export const DataTables = ({ children }) => {
             attr: { 'aria-label': 'Disable filtering' },
             action() {
               dt.destroy();
-              table.innerHTML = table.getAttribute('data-original-html') || table.innerHTML;
+              table.innerHTML =
+                table.getAttribute('data-original-html') || table.innerHTML;
               table.removeAttribute('data-dt-processed');
               table.removeAttribute('data-filter-enabled');
               trigger.style.display = 'block';
@@ -177,7 +166,25 @@ export const DataTables = ({ children }) => {
   };
 
   useEffect(() => {
-    loadDependencies().then(() => {
+    const loadDeps = async () => {
+      await loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
+      await loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js');
+      await loadCSS('https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css');
+
+      const dependencies = [
+        'https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js',
+        'https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js',
+        'https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js',
+        'https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/pdfmake.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/vfs_fonts.js',
+      ];
+      await Promise.all(dependencies.map(loadScript));
+      await loadCSS('https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css');
+    };
+
+    loadDeps().then(() => {
       const initializeAllTables = () => {
         containerRef.current?.querySelectorAll('table').forEach(initializeTable);
         document.querySelectorAll('.rdmd-table table').forEach(initializeTable);
@@ -192,7 +199,7 @@ export const DataTables = ({ children }) => {
 
       return () => observer.disconnect();
     });
-  }, [loadDependencies]);
+  }, []);
 
   return (
     <div ref={containerRef}>
