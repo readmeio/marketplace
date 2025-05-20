@@ -9,7 +9,14 @@ export const Latex = ({ children }) => {
     })
   }, [children]);
 
-  return content;
- }
+  return(
+    <>
+      <link href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" rel="stylesheet" />
+      {content}
+    </>
+  )
+}
 
-<Latex>We give illustrations for the {1 + 2} processes $e^+e^-$, gluon-gluon and $\\gamma\\gamma \\to W t\\bar b$.</Latex>
+<Latex>{`
+  We give illustrations for the ${1 + 2} processes $e^+e^-$, gluon-gluon and $\\gamma\\gamma \\to W t\\bar b$.
+`}</Latex>
