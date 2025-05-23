@@ -9,7 +9,7 @@ export const PostmanRunButton = ({
   useEffect(() => {
     // Only run on client-side
     if (typeof window !== 'undefined') {
-      const scriptFunction = function (p, o, s, t, m, a, n) {
+      const scriptFunction = function (p, o, s, t, m) {
         if (!p[s]) {
           p[s] = function (...args) { 
             const postmanRunObject = p[t] || (p[t] = []);
