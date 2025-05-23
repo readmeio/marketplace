@@ -1,24 +1,32 @@
 import React, { useEffect } from 'react';
 
 export const PostmanRunButton = ({ 
-  collectionId = "", // Add your collection ID here
-  collectionUrl = "", // Add your collection URL here
-  visibility = "public", 
-  action = "collection/fork"
+  collectionId = '', // Add your collection ID here
+  collectionUrl = '', // Add your collection URL here
+  visibility = 'public', 
+  action = 'collection/fork'
 }) => {
   useEffect(() => {
     // Only run on client-side
     if (typeof window !== 'undefined') {
-      const scriptFunction = function (p,o,s,t,m,a,n) {
-        !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
-        !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
-          (n = o.createElement("script")),
-          (n.id = s+t), (n.async = 1), (n.src = m), n
-        ));
+      const scriptFunction = function (p, o, s, t, m, a, n) {
+        if (!p[s]) {
+          p[s] = function (...args) { 
+            const postmanRunObject = p[t] || (p[t] = []);
+            postmanRunObject.push(args); 
+          };
+        }
+        if (!o.getElementById(s + t)) {
+          const scriptElement = o.createElement('script');
+          scriptElement.id = s + t;
+          scriptElement.async = 1;
+          scriptElement.src = m;
+          o.getElementsByTagName('head')[0].appendChild(scriptElement);
+        }
       };
       
       // Execute the script function directly
-      scriptFunction(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js");
+      scriptFunction(window, document, '_pm', 'PostmanRunObject', 'https://run.pstmn.io/button.js');
       
       return () => {
         // Cleanup if needed
@@ -26,6 +34,7 @@ export const PostmanRunButton = ({
         if (scriptElement) document.head.removeChild(scriptElement);
       };
     }
+    return undefined;
   }, []);
 
   return (
