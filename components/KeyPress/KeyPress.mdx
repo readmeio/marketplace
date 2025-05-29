@@ -1,0 +1,41 @@
+import { useState, useEffect } from 'react'
+
+export function normalizeSpecialKeys(key) {
+  const k = key.trim().toLowerCase()
+  if (k === 'ctrl') return 'control'
+  if (k === 'alt') return 'alt'
+  if (k === 'shift') return 'shift'
+  if (k === 'meta') return 'meta'
+  return k
+}
+
+export function KeyPress({ keyCombo, children, onPress = () => {} }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const keys = keyCombo.split('+').map(normalizeSpecialKeys)
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const pressedKeys = new Set()
+
+      if (event.ctrlKey) pressedKeys.add('control')
+      if (event.altKey) pressedKeys.add('alt')
+      if (event.shiftKey) pressedKeys.add('shift')
+      if (event.metaKey) pressedKeys.add('meta') // Command key on macOS
+      pressedKeys.add(event.key.toLowerCase())
+      const match = keys.length === pressedKeys.size && keys.every((key) => pressedKeys.has(key))
+
+      if (match) {
+        setIsVisible((prev) => !prev)
+        event.preventDefault()
+        onPress()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [keys, onPress])
+
+  return isVisible ? children : null
+}
+
+<KeyPress keyCombo='Ctrl+d'>You hit control + d. GREAT JOB!!!!</KeyPress>

@@ -1,4 +1,4 @@
-## `<MyComponentName>` 
+## `<MyComponentName>`
 
 Describe your new component or updates here.
 
