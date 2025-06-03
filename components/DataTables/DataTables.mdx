@@ -1,0 +1,212 @@
+import React, { useEffect, useRef } from 'react';
+
+export const DataTables = ({ children }) => {
+  const containerRef = useRef(null);
+
+  const dtCustomStyles = `
+    .dt-flex-container { 
+      display: flex;
+      justify-content: space-between;
+      align-items: center; 
+      width: 100%;
+    }
+    .dt-buttons {
+      display: flex;
+      gap: 5px;
+    }
+    div.dt-buttons>.dt-button:focus:not(.disabled), 
+    div.dt-buttons>div.dt-button-split .dt-button:focus:not(.disabled) {
+      outline: none;
+    } 
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      padding: 5px;
+      color: inherit;
+      background-color: transparent;
+      margin-left: 0;
+    }
+  `;
+
+  const loadScript = (src) =>
+    new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src='${src}']`)) {
+        resolve();
+        return;
+      }
+      const script = Object.assign(document.createElement('script'), {
+        src,
+        async: true,
+        onload: resolve,
+        onerror: () => {
+          reject(new Error(`Failed to load: ${src}`));
+        },
+      });
+      document.body.appendChild(script);
+    });
+
+  const loadCSS = (href) => {
+    if (!document.querySelector(`link[href='${href}']`)) {
+      document.head.appendChild(
+        Object.assign(document.createElement('link'), {
+          rel: 'stylesheet',
+          href,
+        })
+      );
+    }
+  };
+
+  const initializeTable = (table) => {
+    if (table.getAttribute('data-dt-processed')) return;
+    table.setAttribute('data-dt-processed', 'true');
+    table.setAttribute('data-original-html', table.innerHTML);
+
+    if (!table.id) {
+      table.id = `data-table-${Math.floor(Math.random() * 1000000)}`;
+    }
+
+    const wrapper = table.closest('.rdmd-table') || table.parentElement;
+    if (!wrapper) return;
+
+    let trigger = wrapper.querySelector(`button[aria-controls='${table.id}']`);
+    if (!trigger) {
+      trigger = document.createElement('button');
+      trigger.innerHTML =
+        '<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size: 12px;"></i>';
+      Object.assign(trigger, {
+        type: 'button',
+        title: 'Enable Filter',
+        'aria-label': 'Enable filtering options',
+        style:
+          'position:absolute;top:0;right:0;cursor:pointer;z-index:9999;' +
+          'border-radius:0 0 0 1px;color:#fff;' +
+          'background:linear-gradient(rgb(86,184,255),rgba(1,142,245,0.79));' +
+          'filter:saturate(1.15);display:block;border-block-width: 0;border:0;',
+      });
+      trigger.setAttribute('aria-controls', table.id);
+      trigger.setAttribute('aria-expanded', 'false');
+      wrapper.insertBefore(trigger, wrapper.firstChild);
+    }
+
+    trigger.onclick = () => {
+      trigger.style.display = 'none';
+      if (table.getAttribute('data-filter-enabled')) return;
+
+      const dt = window.jQuery(table).DataTable({
+        dom: "<'dt-flex-container'<'dt-search'f><'dt-buttons'B>>",
+        language: { search: '', searchPlaceholder: 'Search Table:' },
+        buttons: [
+          {
+            extend: 'colvis',
+            text: '<i class="fa fa-columns"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Toggle column visibility' },
+          },
+          {
+            extend: 'copy',
+            text: '<i class="fa fa-copy"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Copy table data' },
+          },
+          {
+            extend: 'csv',
+            text: '<i class="fa fa-file-csv"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Export table as CSV' },
+          },
+          {
+            extend: 'excel',
+            text: '<i class="fa fa-file-excel"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Export table as Excel' },
+          },
+          {
+            extend: 'pdf',
+            text: '<i class="fa fa-file-pdf"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Export table as PDF' },
+          },
+          {
+            extend: 'print',
+            text: '<i class="fa fa-print"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Print table' },
+            action() {
+              setTimeout(() => {
+                window.print();
+              }, 100);
+            },
+          },
+          {
+            text: '<i class="fa fa-ban"></i>',
+            className: 'dt-btn',
+            attr: { 'aria-label': 'Disable filtering' },
+            action() {
+              dt.destroy();
+              table.innerHTML =
+                table.getAttribute('data-original-html') || table.innerHTML;
+              table.removeAttribute('data-dt-processed');
+              table.removeAttribute('data-filter-enabled');
+              trigger.style.display = 'block';
+              trigger.setAttribute('aria-expanded', 'false');
+            },
+          },
+        ],
+        initComplete() {
+          const searchInput = document.querySelector('.dataTables_filter input');
+          if (searchInput) {
+            searchInput.setAttribute('aria-label', 'Search table');
+          }
+        },
+      });
+
+      table.setAttribute('data-filter-enabled', 'true');
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+  };
+
+  useEffect(() => {
+    const loadDeps = async () => {
+      await loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
+      await loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js');
+      await loadCSS('https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css');
+
+      const dependencies = [
+        'https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js',
+        'https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js',
+        'https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js',
+        'https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/pdfmake.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.8/vfs_fonts.js',
+      ];
+      await Promise.all(dependencies.map(loadScript));
+      await loadCSS('https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css');
+    };
+
+    loadDeps().then(() => {
+      const initializeAllTables = () => {
+        containerRef.current?.querySelectorAll('table').forEach(initializeTable);
+        document.querySelectorAll('.rdmd-table table').forEach(initializeTable);
+      };
+
+      initializeAllTables();
+
+      const observer = new MutationObserver(() => {
+        initializeAllTables();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      return () => observer.disconnect();
+    });
+  }, []);
+
+  return (
+    <div ref={containerRef}>
+      <style>{dtCustomStyles}</style>
+      {children}
+    </div>
+  );
+};
+
+<DataTables />
