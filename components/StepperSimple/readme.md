@@ -2,6 +2,8 @@
 
 The **Simple Stepper** component provides basic "Next" and "Back" navigation for stepping through content.
 
+![Stepper](stepper.png)
+
 ## ✨ Features
 
 - ✅ **ADA Compliant** – High-contrast colors, keyboard navigation, and screen reader support.
