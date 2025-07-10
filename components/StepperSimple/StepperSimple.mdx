@@ -1,44 +1,42 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo } from 'react';
 
 export const SimpleStepper = ({ children }) => {
-  console.log("Children received:", children);
-
   const steps = useMemo(() => (Array.isArray(children) ? children : [children]), [children]);
   const [currentStep, setCurrentStep] = useState(0);
 
   const containerStyle = {
-    maxWidth: "600px",
-    margin: "40px auto",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    textAlign: "center",
+    maxWidth: '600px',
+    margin: '40px auto',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    textAlign: 'center',
   };
 
-  const indicatorContainerStyle = { marginBottom: "20px" };
+  const indicatorContainerStyle = { marginBottom: '20px' };
 
   const indicatorStyle = (active) => ({
-    display: "inline-block",
-    width: "30px",
-    height: "30px",
-    lineHeight: "30px",
-    borderRadius: "50%",
-    backgroundColor: active ? "#5A3E8B" : "#ddd", // Updated active color for better contrast
-    color: active ? "white" : "black",
-    margin: "0 5px",
-    fontWeight: "bold",
-    boxShadow: active ? "0px 0px 10px rgba(90, 62, 139, 0.6)" : "none", // Reflects new active color
-    transition: "all 0.3s ease-in-out",
+    display: 'inline-block',
+    width: '30px',
+    height: '30px',
+    lineHeight: '30px',
+    borderRadius: '50%',
+    backgroundColor: active ? '#5A3E8B' : '#ddd', // Updated active color for better contrast
+    color: active ? 'white' : 'black',
+    margin: '0 5px',
+    fontWeight: 'bold',
+    boxShadow: active ? '0px 0px 10px rgba(90, 62, 139, 0.6)' : 'none', // Reflects new active color
+    transition: 'all 0.3s ease-in-out',
   });
 
   const buttonStyle = {
-    padding: "8px 16px",
-    margin: "10px",
-    border: "none",
-    borderRadius: "4px",
-    backgroundColor: "#5A3E8B", // Updated button background for better contrast
-    color: "white",
-    cursor: "pointer",
+    padding: '8px 16px',
+    margin: '10px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#5A3E8B', // Updated button background for better contrast
+    color: 'white',
+    cursor: 'pointer',
   };
 
   const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
