@@ -1,0 +1,30 @@
+import React, { useState } from 'react';
+
+export const Accordion = ({ children, icon, iconColor, title }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <details className="border border-gray-200 dark:border-gray-600 rounded-md" onToggle={() => setIsOpen(!isOpen)}>
+      <summary
+        className={`
+          flex items-center justify-start w-full p-2 text-base font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-700
+          [&::-webkit-details-marker]:hidden marker:content-['']
+          ${isOpen && 'rounded-b-none'}
+        `}
+      >
+        <i className={`fa fa-regular fa-chevron-right text-sm text-gray-500 dark:text-gray-300 mr-2 transition-transform ${isOpen && 'rotate-90'}`}></i>
+        {icon && (
+          <i className={`fa-duotone fa-solid ${icon} text-${iconColor} mr-2`} style={{ color: iconColor }}></i>
+        )}
+        {title}
+      </summary>
+      <div className="text-gray-600 dark:text-white px-4 pt-1">{children}</div>
+    </details>
+  );
+};
+
+<Accordion title="My Accordion" icon="fa-info-circle" iconColor="purple">
+  Lorem ipsum dolor sit amet, **consectetur adipiscing elit.** Ut enim
+  ad minim veniam, quis nostrud exercitation ullamco. Excepteur sint
+  occaecat cupidatat non proident!
+</Accordion>
