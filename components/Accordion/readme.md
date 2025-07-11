@@ -22,4 +22,4 @@ An accordion can be used to expand and collapse sections of content. You can add
 | -------------- | ------ | -------------------------------------------------|
 | `icon`         | string | A Font Awesome icon displayed next to the title. |
 | `iconColor`    | string | The color of the icon.                           |
-| `title`        | string | The heading label for the accordion.                     |
+| `title`        | string | The heading label for the accordion.             |

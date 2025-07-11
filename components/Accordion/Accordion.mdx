@@ -4,11 +4,10 @@ export const Accordion = ({ children, icon, iconColor, title }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <details className="border border-gray-200 rounded-md" onToggle={() => setIsOpen(!isOpen)}>
+    <details className="border border-gray-200 dark:border-gray-600 rounded-md" onToggle={() => setIsOpen(!isOpen)}>
       <summary
         className={`
-          flex items-center justify-start w-full p-2 text-base font-medium cursor-pointer rounded-md
-          hover:bg-gray-100 transition-colors
+          flex items-center justify-start w-full p-2 text-base font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-700
           [&::-webkit-details-marker]:hidden marker:content-['']
           ${isOpen && 'rounded-b-none'}
         `}
