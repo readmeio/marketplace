@@ -1,0 +1,47 @@
+import React from 'react';
+
+export const Card = ({ children, href, icon, iconColor, target, title }) => {
+  const Tag = href ? 'a' : 'div';
+  return (
+    <Tag 
+      className={`
+        group block rounded-md border border-gray-200 bg-white/80 backdrop-blur-sm shadow-md
+        p-4 pb-0 hover:bg-gray-100 transition-colors
+        dark:bg-white/10 dark:border-white/10 dark:hover:bg-white/20`} 
+      href={href}
+      target={target}
+    >
+      {icon && <i className={`text-[20px] mr-2 fa-duotone fa-solid ${icon} ${iconColor}`}></i>}
+      {title && <p className="text-gray-800 font-semibold mt-2 first:mt-0 dark:text-white">{title}</p>}
+      <div className="text-gray-600 dark:text-gray-300 mt-1">{children}</div>
+    </Tag>
+  );
+};
+
+export const Cards = ({ columns = 2, children }) => {
+  columns = columns >= 2 ? columns : 2;
+  return (
+    <div className={`
+      grid gap-5
+      ${columns <= 1 ? 'grid-cols-1' : `grid-cols-${columns > 4 ? 4 : columns}`}
+      max-[414px]:grid-cols-1
+    `}>
+      {children}
+    </div>
+  );
+};
+
+<Cards columns={4}>
+  <Card title="First Card" href="https://readme.com" icon="fa-home" target="_blank">
+    Neque porro quisquam est qui dolorem ipsum quia
+  </Card>
+  <Card title="Second Card" icon="fa-user">
+    *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
+  </Card>
+  <Card title="Third Card" icon="fa-star">
+    > Ut enim ad minim veniam, quis nostrud ullamco
+  </Card>
+  <Card title="Fourth Card" icon="fa-question">
+    **Excepteur sint occaecat cupidatat non proident**
+  </Card>
+</Cards>
