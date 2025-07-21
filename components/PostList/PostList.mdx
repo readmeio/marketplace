@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 export const PostList = ({
   url = "https://jsonplaceholder.typicode.com/posts?_limit=5",
 }) => {
+export const PostList = ({
+  url = "https://jsonplaceholder.typicode.com/posts?_limit=5",
+}) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,6 +13,10 @@ export const PostList = ({
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
         const response = await fetch(url);
         const data = await response.json();
         setPosts(data);
