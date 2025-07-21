@@ -1,26 +1,14 @@
-# PostList Component
+# PostList
 
-The **PostList** component is a dynamic, data-fetching React component. It demonstrates how to:
+## Overview
 
-- Fetch data asynchronously using the native `fetch` API.
-- Manage component state with React hooks (`useState` and `useEffect`).
-- Display a custom, professional rotating loader built with Tailwind CSS.
-- Handle error states and provide feedback to users.
-
-## Features
-
-- **Dynamic Data Fetching:** Retrieves posts from a public API endpoint.
-- **Professional Loading Indicator:** Uses a sleek rotating loader to indicate progress.
-- **Error Handling:** Displays clear error messages if the data fetch fails.
-- **Self-contained MDX Example:** Easy to integrate into your docs, showcasing how to implement a similar component.
+The **PostList** component fetches and displays a list of posts from an API endpoint. It shows a loading indicator while fetching and handles errors. Ideal for demonstrating async data fetching with React hooks and Tailwind CSS styling.
 
 ## Usage
 
-To use the `PostList` component in your documentation:
+| Prop | Type   | Required | Default                                                     | Description                     |
+|------|--------|----------|-------------------------------------------------------------|---------------------------------|
+| url  | string | No       | `"https://jsonplaceholder.typicode.com/posts?_limit=5"`    | API endpoint to fetch posts from |
 
-1. Open the `PostList.mdx` file.
-2. Copy the code snippet provided.
-3. Modify the API endpoint or styling to suit your requirements.
-4. Embed the component in your docs to display a list of posts or your API response with real-time data fetching.
-
-This component is an excellent example of how to implement asynchronous data fetching along with user-friendly loading states in your documentation.
+```jsx
+<PostList url="https://your.api.com/posts?limit=10" />
