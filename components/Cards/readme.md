@@ -17,7 +17,7 @@ Cards can be used to display content in an organized grid layout. Each card can 
     *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
   </Card>
   <Card title="Third Card" icon="fa-star">
-    > Ut enim ad minim veniam, quis nostrud ullamco
+    `Ut enim ad minim veniam, quis nostrud ullamco`
   </Card>
   <Card title="Fourth Card" icon="fa-question">
     **Excepteur sint occaecat cupidatat non proident**
@@ -28,16 +28,16 @@ Cards can be used to display content in an organized grid layout. Each card can 
 ## Props
 
 ### `Cards`
-| Prop           | Type   | Description                                      |
-| -------------- | ------ | -------------------------------------------------|
-| `columns`      | number | The amount of cards to display in a row.         |
+| Prop           | Type   | Description                                           |
+| -------------- | ------ | ------------------------------------------------------|
+| `columns`      | number | The amount of cards displayed in a row, default `2`.  |
 
 ### `Card`
-| Prop           | Type   | Description                                      |
-| -------------- | ------ | -------------------------------------------------|
-| `title`        | string | The heading for the card.                        |
+| Prop           | Type   | Description                                           |
+| -------------- | ------ | ------------------------------------------------------|
+| `title`        | string | The heading for the card.                             |
 | `icon`         | string | A Font Awesome icon displayed at the top of the card. | 
-| `iconColor`    | string | The color of the icon.                           |
-| `href`         | string | The URL that opens on card click.                |
-| `target`       | string | Where to display the linked URL, with `_self` as the default. |
+| `iconColor`    | string | The color of the icon.                                |
+| `href`         | string | The URL that opens on card click.                     |      
+| `target`       | string | Where to display the linked URL, default `_self`.     |
 
