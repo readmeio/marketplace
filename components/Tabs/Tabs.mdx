@@ -18,7 +18,7 @@ export const Tabs = ({ children }) => {
                 key={tab.props.title}
                 className={`
                  bg-inherit border-none font-semibold mr-4 pb-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
-                 ${isActive && "text-gray-800 dark:text-white"}`}
+                 ${isActive && 'text-gray-800 dark:text-white'}`}
                 onClick={() => setActiveTab(index)}
               >
                 {tab.props.icon && (
@@ -40,9 +40,9 @@ export const Tabs = ({ children }) => {
     Welcome to the content that you can only see inside the first Tab.
   </Tab>
   <Tab title="Second Tab">
-    Here's content that's only inside the second Tab.
+    This is content that you can only see inside the second Tab.
   </Tab>
   <Tab title="Third Tab">
-    Here's content that's only inside the third Tab.
+    This is content that you can only see inside the third Tab.
   </Tab>
 </Tabs>
