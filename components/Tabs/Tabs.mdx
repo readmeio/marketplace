@@ -1,0 +1,49 @@
+import React, { useState } from 'react';
+
+export const Tab = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+export const Tabs = ({ children }) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <div>
+      <header>
+        <nav className="border-b border-gray-200 dark:border-gray-700 mb-4">
+          {children?.map((tab, index) => {
+            const isActive = activeTab === index;
+            return (
+              <button
+                key={tab.props.title}
+                className={`
+                 bg-inherit border-0 font-semibold text-sm cursor-pointer mr-4 pb-2
+                 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
+                 ${isActive && 'text-gray-700 -mb-1 border-b-1 border-gray-600 dark:text-white dark:border-white'}`}
+                onClick={() => setActiveTab(index)}
+              >
+                {tab.props.icon && (
+                 <i className={`fa-duotone fa-solid ${tab.props.icon} text-${tab.props.iconColor} mr-2`}></i>
+                )}
+                {tab.props.title}
+              </button>
+           )}
+          )}
+        </nav>
+      </header>
+      <section>{children && children[activeTab]}</section>
+    </div>
+  );
+};
+
+<Tabs>
+  <Tab title="First Tab" icon="fa-clock" iconColor="blue-500">
+    Welcome to the content that you can only see inside the first Tab.
+  </Tab>
+  <Tab title="Second Tab" icon="fa-star" iconColor="blue-500">
+    This is content that you can only see inside the second Tab.
+  </Tab>
+  <Tab title="Third Tab" icon="fa-heart" iconColor="blue-500">
+    This is content that you can only see inside the third Tab.
+  </Tab>
+</Tabs>
