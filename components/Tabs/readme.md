@@ -10,13 +10,13 @@ Tabs can be used to organize content into sections where only one is visible at 
 
 ```mdx
 <Tabs>
-  <Tab title="First Tab">
+  <Tab title="First Tab" icon="fa-clock" iconColor="blue-500">
     Welcome to the content that you can only see inside the first Tab.
   </Tab>
-  <Tab title="Second Tab">
+  <Tab title="Second Tab" icon="fa-star" iconColor="blue-500">
     Here's content that's only inside the second Tab.
   </Tab>
-  <Tab title="Third Tab">
+  <Tab title="Third Tab" icon="fa-heart" iconColor="blue-500">
     Here's content that's only inside the third Tab.
   </Tab>
 </Tabs>
