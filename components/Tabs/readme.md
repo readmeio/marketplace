@@ -14,10 +14,10 @@ Tabs can be used to organize content into sections where only one is visible at 
     Welcome to the content that you can only see inside the first Tab.
   </Tab>
   <Tab title="Second Tab" icon="fa-star" iconColor="blue-500">
-    Here's content that's only inside the second Tab.
+    This is content that you can only see inside the second Tab.
   </Tab>
   <Tab title="Third Tab" icon="fa-heart" iconColor="blue-500">
-    Here's content that's only inside the third Tab.
+    This is content that you can only see inside the third Tab.
   </Tab>
 </Tabs>
 ```
