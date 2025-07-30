@@ -1,0 +1,28 @@
+import React, { Children } from 'react';
+
+export const Column = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+export const Columns = ({ children, layout = 'auto' }) => {
+  const columnsCount = Children.count(children);
+  const layoutType = layout === 'fixed' ? '1fr' : 'auto';
+
+  return (
+     <div className={`grid gap-5 grid-cols-[repeat(${columnsCount},${layoutType})] max-[414px]:grid-cols-1`}>
+      {children}
+    </div>
+  );
+};
+
+<Columns layout="fixed">
+  <Column>
+    Neque porro quisquam est qui dolorem ipsum quia
+  </Column>
+  <Column>
+    *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
+  </Column>
+  <Column>
+    **Ut enim ad minim veniam, quis nostrud ullamco**
+  </Column>
+</Columns>
