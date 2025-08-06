@@ -18,8 +18,8 @@
       "files": ["*.mdx"],
       "extends": ["plugin:mdx/recommended"],
       "rules": {
-        "mdx/no-unused-expressions": "off",
-        "mdx/no-jsx-html-comments": "off"
+        "mdx/no-unused-expressions": "off",   // common frontmatter issue
+        "mdx/no-jsx-html-comments": "off"     // optional if you use <!-- -->
       }
     }
   ],
