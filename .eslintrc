@@ -1,7 +1,7 @@
 {
   "extends": [
     "@readme/eslint-config",
-    "@readme/eslint-config/react",
+    "@readme/eslint-config/react"
   ],
   "root": true,
   "parser": "@babel/eslint-parser",
@@ -10,9 +10,19 @@
     "babelOptions": {
       "babelrc": false,
       "configFile": false,
-      "presets": ["@babel/preset-react"],
-    },
+      "presets": ["@babel/preset-react"]
+    }
   },
+  "overrides": [
+    {
+      "files": ["*.mdx"],
+      "extends": ["plugin:mdx/recommended"],
+      "rules": {
+        "mdx/no-unused-expressions": "off",   // common frontmatter issue
+        "mdx/no-jsx-html-comments": "off"     // optional if you use <!-- -->
+      }
+    }
+  ],
   "rules": {
     "import/no-unresolved": ["error", { "ignore": ["react"] }],
     "no-console": "off",
@@ -23,6 +33,6 @@
     // These rules do not apply with the way we're utilizing React within MDX components.
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
