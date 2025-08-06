@@ -13,14 +13,16 @@
       "presets": ["@babel/preset-react"]
     }
   },
-  "overrides": {
-    "files": ["*.mdx"],
-    "parser": "@mdx-js/eslint-mdx",
-    "rules": {
-      "mdx/no-unused-expressions": "off",   // common frontmatter issue
-      "mdx/no-jsx-html-comments": "off"     // optional if you use <!-- -->
+  "overrides": [
+    {
+      "files": ["*.mdx"],
+      "parser": "@mdx-js/eslint-mdx",
+      "rules": {
+        "mdx/no-unused-expressions": "off",
+        "mdx/no-jsx-html-comments": "off"
+      }
     }
-  },
+  ],
   "rules": {
     "import/no-unresolved": ["error", { "ignore": ["react"] }],
     "no-console": "off",
