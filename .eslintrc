@@ -16,7 +16,7 @@
   "overrides": [
     {
       "files": ["*.mdx"],
-      "parser": "@mdx-js/eslint-mdx",
+      "parser": "@mdx-js/eslint-plugin-mdx",
       "rules": {
         "mdx/no-unused-expressions": "off",
         "mdx/no-jsx-html-comments": "off"
