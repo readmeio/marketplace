@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the default `<ExampleComponent />` that we pre-fill when you create your first component!
+This is the default `<ExampleComponent />` that we pre-fill when you create a new component in ReadMe! You can use this is a starter template for your own component.
 
 <img src="example-component.png" width="800" />
 
