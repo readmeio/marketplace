@@ -3,7 +3,7 @@ We appreciate your interest in contributing to ReadMe's MDX Component Marketplac
 
 ## 📋 Prerequisites
 - Familiarity with React, MDX, and Tailwind CSS.
-- Node.js v18+ and npm (or yarn/pnpm).
+- Node.js v20+ and npm (or yarn/pnpm).
 - ESLint + Prettier configured locally (the repo includes configs).
 
 ## 🛠 Development Setup
