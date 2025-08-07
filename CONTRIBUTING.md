@@ -2,12 +2,12 @@
 We appreciate your interest in contributing to ReadMe's MDX Component Marketplace! 🎉 To maintain quality and consistency, please follow the guidelines below.
 
 ## 📋 Prerequisites
-- Node.js v18+ and npm (or yarn/pnpm).
 - Familiarity with React, MDX, and Tailwind CSS.
+- Node.js v18+ and npm (or yarn/pnpm).
 - ESLint + Prettier configured locally (the repo includes configs).
 
 ## 🛠 Development Setup
-If you want to write your component locally:
+To create your component locally:
 1. Clone the repository:
     ```
     git clone https://github.com/readmeio/marketplace.git
