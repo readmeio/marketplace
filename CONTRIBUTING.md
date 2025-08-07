@@ -16,7 +16,7 @@ To create your component locally:
     ```
     npm install
     ```
-3. Copy and paste the [ExampleComponent](https://github.com/readmeio/marketplace/tree/main/components/ExampleComponent) folder to use as a starter template.
+3. Copy and paste the [ExampleComponent](https://github.com/readmeio/marketplace/tree/main/components/.ExampleComponent) folder to use as a starter template.
 
 ## 🧩 Component Requirements
 When contributing a new MDX component:
