@@ -52,6 +52,7 @@ When contributing a new MDX component:
     
 - **Styling**
   - Try to use Tailwind classes only. External CSS or `style` tags if necessary.
+  - Address dark mode styles by using the Tailwind `dark:` variant.
   - Use semantic HTML (e.g., button for buttons, nav for navigation).
 
 - **Accessibility**
