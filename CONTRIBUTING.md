@@ -28,6 +28,7 @@ When contributing a new MDX component:
 - **Naming**
     - Use PascalCase for component names (e.g., CardGrid.mdx).
     - Avoid generic names like Test or Component.
+    - Ensure your component name does not conflict with other marketplace components.
 
 - **Structure**
     ```
@@ -70,7 +71,6 @@ When contributing a new MDX component:
 ## 📦 Testing Your Component
 - Each component must include a usage example in its MDX file.
 - You can verify your component renders correctly in your ReadMe project's [Custom Components Builder](https://docs.readme.com/main/docs/building-custom-mdx-components#getting-started-with-custom-components).
-- Ensure your component name does not conflict with other marketplace components.
 
 ## 🔄 Submitting Your Contribution
 1. Create a new branch:
