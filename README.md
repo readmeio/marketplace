@@ -16,11 +16,13 @@ If you're looking on where to start, check these out!
 - 🏞️ **[`<SnapSlider>`](./components/SnapSlider)**: Let users scroll through a handful of images, rather than having to pick just one!
 - 👩🏻‍💻 **[`<Terminal>`](./components/Terminal)**: A faux terminal that shows input and output, as well makes it easy to copy each command.
 - 👆 **[`<KeyPress>`](./components/KeyPress)**: Show some special content if the user hits a key-combo of your choice.
-- 🛠️ **[`<ExampleComponent>`](./components/ExampleComponent)**: If you're looking to build your own and need a simple example component, this is a great place to start!
+- 🛠️ **[`<ExampleComponent>`](./components/.ExampleComponent)**: If you're looking to build your own and need a simple example component, this is a great place to start!
 
 ### Contributing
 
 Have a cool idea for a component that you think could be useful to the wider ReadMe community? We're accepting contributions to this repo; just open up a PR with your new MDX component and we'll do our best to review it and get back to you. And if you have any questions, just open an issue.
+
+Please read our [Contribution Guidelines](https://github.com/readmeio/marketplace/blob/main/CONTRIBUTING.md) before getting started on your component.
 
 ---
 
