@@ -1,16 +1,102 @@
 // ---
 // title: "AdvancedTable"
 // description: "A table with advanced features."
-// author: "ReadMe"
+// author: "@trishaprile"
 // version: "1.0.0"
 // ---
 
+import { useState } from 'react';
+
 export const AdvancedTable = ({ data }) => {
+  const [query, setQuery] = useState('');
+
+  // Dynamically get columns from the first row
+  const columns = Object.keys(data[0])
+
+  // Search filter: check all values in a row
+  const filteredData = data.filter(row =>
+    columns.some(col =>
+      String(row[col] ?? '')
+        .toLowerCase()
+        .includes(query.toLowerCase())
+    )
+  )
+
+  // Print the table
+  const handlePrint = () => {
+    window.print();
+  }
+
   return (
-    <div className="flex justify-center">
-      {data}
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        {/* Search input */}
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="Filter table…"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            className="px-3 py-1 border border-gray-300 bg-white rounded-md text-sm w-50"
+          />
+        </div>
+
+        {/* Print button */}
+        <button
+          onClick={handlePrint}
+          className="px-3 py-1 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-200"
+        >
+          <i className="fa fa-print text-gray-500" />
+        </button>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto border border-gray-200 rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200 text-sm">
+          <thead className="bg-gray-50">
+            <tr>
+              {columns.map(col => (
+                <th
+                  key={col}
+                  className="px-4 py-2 text-left font-medium text-gray-500 capitalize"
+                >
+                  {col.replace(/_/g, ' ')}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {filteredData.map((row, i) => (
+              <tr key={i}>
+                {columns.map(col => (
+                  <td key={col} className="px-4 py-2">
+                    {String(row[col] ?? '')}
+                  </td>
+                ))}
+              </tr>
+            ))}
+            {filteredData.length === 0 && (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="px-4 py-4 text-center text-gray-400"
+                >
+                  No matching results
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
-  );
+  )
 };
 
-<AdvancedTable data="Getting Started with Custom Components" />
+<AdvancedTable
+  data={[
+    { Feature: 'Linter', Version: 'v1.0', Status: 'In Progress', 'Release Date': 'Oct 1, 2025' },
+    { Feature: 'AI Agent', Version: 'v1.0', Status: 'Beta', 'Release Date': 'Aug 31, 2025' },
+    { Feature: 'Components', Version: 'v3.2', Status: 'Complete', 'Release Date': 'Mar 1, 2025' },
+    { Feature: 'Refactored UI', Version: 'v2.3', Status: 'Complete', 'Release Date': 'Feb 1, 2025' },
+  ]}
+/>

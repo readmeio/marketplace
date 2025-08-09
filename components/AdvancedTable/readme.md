@@ -9,7 +9,14 @@ AdvancedTables can be used to
 ## Usage
 
 ```mdx
-<AdvancedTable header="Getting started with Custom Components" />
+<AdvancedTable
+  data={[
+    { Feature: 'Linter', Version: 'v1.0', Status: 'In Progress', 'Release Date': 'Oct 1, 2025' },
+    { Feature: 'AI Agent', Version: 'v1.0', Status: 'Beta', 'Release Date': 'Aug 31, 2025' },
+    { Feature: 'Components', Version: 'v3.2', Status: 'Complete', 'Release Date': 'Mar 1, 2025' },
+    { Feature: 'Refactored UI', Version: 'v2.3', Status: 'Complete', 'Release Date': 'Feb 1, 2025' },
+  ]}
+/>
 ```
 
 ## Props
