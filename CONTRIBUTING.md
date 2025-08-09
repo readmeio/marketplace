@@ -75,7 +75,7 @@ When contributing a new MDX component:
 ## 🔄 Submitting Your Contribution
 1. Create a new branch:
     ```
-    git checkout -b feature/my-component
+    git checkout -b component/my-component
     ```
 
 2. Commit your changes:
