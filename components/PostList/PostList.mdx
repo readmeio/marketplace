@@ -1,0 +1,59 @@
+import { useState, useEffect } from 'react';
+
+export const PostList = ({
+  url = 'https://jsonplaceholder.typicode.com/posts?_limit=5',
+}) => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        setPosts(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPosts();
+  }, [url]);
+
+  return (
+    <div className="flex flex-col items-center justify-center p-10">
+      <div className="relative w-12 h-12 mb-4">
+        {/* Example icon or placeholder */}
+        <span className="absolute inset-0 bg-gray-300 rounded-full" />
+      </div>
+
+      {loading && <p className="text-gray-500">Loading posts…</p>}
+      {error && <p className="text-red-500">Error loading posts.</p>}
+
+      <ul className="mt-4 space-y-2 w-full max-w-md">
+        {posts.map((post) => (
+          <li
+            key={post.id}
+            className="p-4 bg-white rounded shadow hover:bg-gray-50 transition"
+          >
+            <h3 className="font-semibold text-lg mb-1">{post.title}</h3>
+            <p className="text-sm text-gray-600">{post.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-2xl font-bold mb-6">Latest Posts</h1>
+      <PostList url='https://jsonplaceholder.typicode.com/posts?_limit=10' />
+    </div>
+  );
+}
+
+
