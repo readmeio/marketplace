@@ -1,132 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 export const Banner = ({
-  isHeader = false,
+  isInline = false,
   message,
-  bannerColor,
-  bannerTextColor,
+  color,
+  textColor,
   fontSize,
   fontWeight
 }) => {
-  const [bannerContainer, setBannerContainer] = useState(null);
-  const history = useHistory();
-
-
-  // Function to remove the banner element from the DOM
-  const removeBanner = () => {
-    const container = document.getElementById('simple-banner-container');
-    if (container) {
-      container.remove();
-    }
-  };
-
-  // Effect to handle header-based banner creation and cleanup
+  // Handle header-based banner creation
   useEffect(() => {
-    if (isHeader) {
-      const header = document.querySelector('header.rm-Header');
+    if (!isInline) {
+      const header = document.querySelector('#content-head');
       if (header) {
-        let container = document.getElementById('simple-banner-container');
+        let container = document.getElementById('banner-container');
         if (!container) {
           container = document.createElement('div');
-          container.id = 'simple-banner-container';
-          // Append container to the bottom of the header
-          header.appendChild(container);
+          container.id = 'banner-container';
+
+					// Set banner container styles
+          container.style.backgroundColor = color;
+					container.style.color = textColor;
+ 					container.style.fontSize = fontSize;
+          container.style.fontWeight = fontWeight;
+					container.style.padding = '8px';
+        	container.style.textAlign = 'center';
+          container.style.borderRadius = '6px';
+					container.style.marginBottom = '20px';
+
+          container.textContent = message;
+
+          // Append banner container to the top of the page
+					header.prepend(container);
         }
-        setBannerContainer(container);
       }
-    } else {
-      // If switching from header to inline, ensure any header banner is removed.
-      removeBanner();
-      setBannerContainer(null);
-    }
+		}
+  }, [isInline]);
 
-    // Cleanup: always remove the banner when the component unmounts.
-    return () => {
-      removeBanner();
-    };
-  }, [isHeader]);
-
-  // Update the banner container's styles and content when props change.
-  useEffect(() => {
-    if (bannerContainer) {
-      bannerContainer.style.background = bannerColor;
-      bannerContainer.style.color = bannerTextColor;
-      bannerContainer.style.fontSize = fontSize;
-      bannerContainer.style.fontWeight = fontWeight;
-      bannerContainer.style.padding = '8px';
-      bannerContainer.style.textAlign = 'center';
-      bannerContainer.textContent = message;
-    }
-  }, [bannerContainer, message, bannerColor, bannerTextColor, fontSize, fontWeight]);
-
-  // Ensure the banner is removed on route change (for SPAs)
-  useEffect(() => {
-    let lastPath = window.location.pathname;
-
-    const checkRouteChange = () => {
-      if (window.location.pathname !== lastPath) {
-        lastPath = window.location.pathname;
-        removeBanner();
-      }
-    };
-
-    // Override history methods to catch route changes.
-    const originalPushState = history.pushState;
-    const originalReplaceState = history.replaceState;
-
-    history.pushState = function (...args) {
-      originalPushState.apply(history, args);
-      removeBanner();
-    };
-
-    history.replaceState = function (...args) {
-      originalReplaceState.apply(history, args);
-      removeBanner();
-    };
-
-    // Backup interval to check for route changes
-    const routeCheckInterval = setInterval(checkRouteChange, 500);
-    window.addEventListener('popstate', removeBanner);
-
-    // Cleanup on effect teardown.
-    return () => {
-      clearInterval(routeCheckInterval);
-      history.pushState = originalPushState;
-      history.replaceState = originalReplaceState;
-      window.removeEventListener('popstate', removeBanner);
-    };
-  }, [history]);
-
-  // Render inline banner if not in header mode.
-  if (!isHeader) {
-    return (
-      <div
-        style={{
-          background: bannerColor,
-          color: bannerTextColor,
-          fontSize,
-          fontWeight,
-          padding: '8px',
-          textAlign: 'center',
-          borderRadius: '6px',
-          marginBottom: '20px'
-        }}
-      >
-        {message}
-      </div>
-    );
-  }
-
-  // If isHeader is true, nothing is rendered inline since the banner is injected.
-  return null;
+  // Render inline banner
+ 	return (
+    isInline && (
+    <div
+      className={`p-2 rounded-md text-center bg-[${color}] text-[${textColor}] text-[${fontSize}] font-${fontWeight}`}
+		>
+			{message}
+		</div>
+		)
+	)
 };
 
 <Banner
-  isHeader={false} 
-  message="This banner is displayed inline. Set isHeader to true to move it seamlessly into your site's header!" 
-  bannerColor="#118cfd" 
-  bannerTextColor="#ffffff" 
-  fontSize="14px" 
-  fontWeight="bold" 
-/>
+  isInline={true}
+  message="This banner is displayed inline. Set isInline to false to move it seamlessly into your page's header!"
+  color="#118cfd"
+  textColor="#ffffff"
+  fontSize="14px"
+  fontWeight="bold"
+ />
