@@ -1,0 +1,66 @@
+---
+title: "Banner"
+description: "A customizable banner for displaying important information in your page."
+author: "@trishaprile"
+version: "1.0.0"
+---
+
+import React, { useEffect } from 'react';
+
+export const Banner = ({
+  isInline = false,
+  message,
+  color,
+  textColor,
+  fontSize,
+  fontWeight
+}) => {
+  // Handle header-based banner creation
+  useEffect(() => {
+    if (!isInline) {
+      const header = document.querySelector('#content-head');
+      if (header) {
+        let container = document.getElementById('banner-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'banner-container';
+
+					// Set banner container styles
+          container.style.backgroundColor = color;
+					container.style.color = textColor;
+ 					container.style.fontSize = fontSize;
+          container.style.fontWeight = fontWeight;
+					container.style.padding = '8px';
+        	container.style.textAlign = 'center';
+          container.style.borderRadius = '6px';
+					container.style.marginBottom = '20px';
+
+          container.textContent = message;
+
+          // Append banner container to the top of the page
+					header.prepend(container);
+        }
+      }
+		}
+  }, [isInline]);
+
+  // Render inline banner
+ 	return (
+    isInline && (
+    <div
+      className={`p-2 rounded-md text-center bg-[${color}] text-[${textColor}] text-[${fontSize}] font-${fontWeight}`}
+		>
+			{message}
+		</div>
+		)
+	)
+};
+
+<Banner
+  isInline={true}
+  message="This banner is displayed inline. Set isInline to false to move it seamlessly into your page's header!"
+  color="#118cfd"
+  textColor="#ffffff"
+  fontSize="14px"
+  fontWeight="bold"
+ />
