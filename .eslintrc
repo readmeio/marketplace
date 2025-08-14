@@ -21,6 +21,12 @@
         "mdx/no-unused-expressions": "off",   // common frontmatter issue
         "mdx/no-jsx-html-comments": "off"     // optional if you use <!-- -->
       }
+    },
+    {
+      "files": ["components/Banner/Banner.mdx"],
+      "rules": {
+        "react-hooks/exhaustive-deps": "off" // this is fine
+      }
     }
   ],
   "rules": {
@@ -33,7 +39,6 @@
     // These rules do not apply with the way we're utilizing React within MDX components.
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react/react-in-jsx-scope": "off"
   }
 }
