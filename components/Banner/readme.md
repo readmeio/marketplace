@@ -10,7 +10,7 @@ Banners can be used to visually highlight important information, announcements, 
 
 ```mdx
 <Banner
-  isInline={false}
+  isInline={true}
   message="This banner is displayed inline. Set isInline to false to move it seamlessly into your page's header!"
   color="#118cfd"
   textColor="#ffffff"
