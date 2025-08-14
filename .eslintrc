@@ -33,6 +33,7 @@
     // These rules do not apply with the way we're utilizing React within MDX components.
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
