@@ -1,0 +1,133 @@
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+export const Banner = ({
+  isHeader = false,
+  message,
+  bannerColor,
+  bannerTextColor,
+  fontSize,
+  fontWeight
+}) => {
+  const [bannerContainer, setBannerContainer] = useState(null);
+  const history = useHistory();
+
+
+  // Function to remove the banner element from the DOM
+  const removeBanner = () => {
+    const container = document.getElementById('simple-banner-container');
+    if (container) {
+      container.remove();
+    }
+  };
+
+  // Effect to handle header-based banner creation and cleanup
+  useEffect(() => {
+    if (isHeader) {
+      const header = document.querySelector('header.rm-Header');
+      if (header) {
+        let container = document.getElementById('simple-banner-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'simple-banner-container';
+          // Append container to the bottom of the header
+          header.appendChild(container);
+        }
+        setBannerContainer(container);
+      }
+    } else {
+      // If switching from header to inline, ensure any header banner is removed.
+      removeBanner();
+      setBannerContainer(null);
+    }
+
+    // Cleanup: always remove the banner when the component unmounts.
+    return () => {
+      removeBanner();
+    };
+  }, [isHeader]);
+
+  // Update the banner container's styles and content when props change.
+  useEffect(() => {
+    if (bannerContainer) {
+      bannerContainer.style.background = bannerColor;
+      bannerContainer.style.color = bannerTextColor;
+      bannerContainer.style.fontSize = fontSize;
+      bannerContainer.style.fontWeight = fontWeight;
+      bannerContainer.style.padding = '8px';
+      bannerContainer.style.textAlign = 'center';
+      bannerContainer.style.borderRadius = '6px';
+      bannerContainer.textContent = message;
+    }
+  }, [bannerContainer, message, bannerColor, bannerTextColor, fontSize, fontWeight]);
+
+  // Ensure the banner is removed on route change (for SPAs)
+  useEffect(() => {
+    let lastPath = window.location.pathname;
+
+    const checkRouteChange = () => {
+      if (window.location.pathname !== lastPath) {
+        lastPath = window.location.pathname;
+        removeBanner();
+      }
+    };
+
+    // Override history methods to catch route changes.
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+
+    history.pushState = function (...args) {
+      originalPushState.apply(history, args);
+      removeBanner();
+    };
+
+    history.replaceState = function (...args) {
+      originalReplaceState.apply(history, args);
+      removeBanner();
+    };
+
+    // Backup interval to check for route changes
+    const routeCheckInterval = setInterval(checkRouteChange, 500);
+    window.addEventListener('popstate', removeBanner);
+
+    // Cleanup on effect teardown.
+    return () => {
+      clearInterval(routeCheckInterval);
+      history.pushState = originalPushState;
+      history.replaceState = originalReplaceState;
+      window.removeEventListener('popstate', removeBanner);
+    };
+  }, [history]);
+
+  // Render inline banner if not in header mode.
+  if (!isHeader) {
+    return (
+      <div
+        style={{
+          background: bannerColor,
+          color: bannerTextColor,
+          fontSize,
+          fontWeight,
+          padding: '8px',
+          textAlign: 'center',
+          borderRadius: '6px',
+          marginBottom: '20px'
+        }}
+      >
+        {message}
+      </div>
+    );
+  }
+
+  // If isHeader is true, nothing is rendered inline since the banner is injected.
+  return null;
+};
+
+<Banner
+  isHeader={false} 
+  message="This banner is displayed inline. Set isHeader to true to move it seamlessly into your site's header!" 
+  bannerColor="#00bcff" 
+  bannerTextColor="#ffffff" 
+  fontSize="14px" 
+  fontWeight="bold" 
+/>
