@@ -55,9 +55,31 @@ export const AdvancedTable = ({ data }) => {
     else setSortOrder(null);
   };
 
-	// Export CSV
+  // Export as CSV
   const handleExport = () => {
-    window.print();
+    if (!sortedData || !sortedData.length) return;
+    
+    // Build rows
+    const csvRows = [];
+    csvRows.push(columns.join(','));
+    sortedData.forEach((row) => {
+      const values = columns.map((col) => {
+        const val = row[col] ?? '';
+        return `"${String(val).replace(/"/g, '""')}"`;
+      });
+      csvRows.push(values.join(','));
+    });
+    const csvContent = csvRows.join('\n');
+
+    // Create a blob and trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'table-data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
   
 	// Reset to page 1 when filter changes
