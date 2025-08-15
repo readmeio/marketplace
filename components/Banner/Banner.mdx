@@ -17,10 +17,12 @@ export const Banner = ({
 }) => {
   // Handle header-based banner creation
   useEffect(() => {
+    let container;
+
     if (!isInline) {
       const header = document.querySelector('#content-head');
       if (header) {
-        let container = document.getElementById('banner-container');
+        container = document.getElementById('banner-container');
         if (!container) {
           container = document.createElement('div');
           container.id = 'banner-container';
@@ -42,6 +44,13 @@ export const Banner = ({
         }
       }
 		}
+
+    // Remove banner on page change
+    return () => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+    };
   }, [isInline]);
 
   // Render inline banner
