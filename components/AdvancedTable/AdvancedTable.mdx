@@ -1,9 +1,9 @@
-// ---
-// title: "AdvancedTable"
-// description: "A table with advanced features."
-// author: "@trishaprile"
-// version: "1.0.0"
-// ---
+---
+title: "AdvancedTable"
+description: "A table with advanced features."
+author: "@trishaprile"
+version: "1.0.0"
+---
 
 import { useState, useEffect, useMemo } from 'react';
 
@@ -91,18 +91,18 @@ export const AdvancedTable = ({ data }) => {
     <div className="space-y-2">
       <div className="flex justify-between items-center">
         <input
-          type="text"
           placeholder="Filter table…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="px-3 py-1 border border-gray-300 bg-white rounded-md text-gray-800 w-50"
+          className="px-3 py-1 border border-gray-300 bg-inherit rounded-md text-gray-800 dark:text-white w-50"
         />
 
         <button
           onClick={handleExport}
-          className="px-2 py-1 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-200"
+          className="px-2 py-1 text-sm bg-inerhit border border-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+          type="button"
         >
-          <i className="fa fa-file-csv text-gray-500" />
+          <i className="fa fa-file-csv text-gray-500 dark:text-white" />
         </button>
       </div>
 
@@ -118,8 +118,9 @@ export const AdvancedTable = ({ data }) => {
 									onClick={idx === 0 ? toggleSort : undefined}
                 >
                   {col.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase())}
-                  {idx === 0 && sortOrder === 'asc' && <i className="fa fa-arrow-up pl-2 text-[10px] font-bold" />}
-                  {idx === 0 && (sortOrder === 'desc' || sortOrder === null) && <i className="fa fa-arrow-down pl-2 text-[10px] font-bold" />}
+                  {idx === 0 && !sortOrder && <i className="fa fa-arrow-down pl-2 text-[10px] relative bottom-[1px] text-gray-300" />}
+                  {idx === 0 && sortOrder === 'asc' && <i className="fa fa-arrow-up pl-2 text-[10px] relative bottom-[1px]" />}
+                  {idx === 0 && sortOrder === 'desc' && <i className="fa fa-arrow-down pl-2 text-[10px] relative bottom-[1px]" />}
                 </th>
               ))}
             </tr>
@@ -156,18 +157,21 @@ export const AdvancedTable = ({ data }) => {
               className="px-3 text-gray-500 rounded font-bold disabled:opacity-50 bg-inherit border-none hover:not-disabled:text-gray-800"
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
+              type="button"
             >
               <i className="fa fa-chevron-left text-xs text-gray-400 pr-1"/> Previous
             </button>
             {Array.from({ length: totalPages }).map((_, idx) => (
               <button
                 key={idx}
+                aria-label={`Page ${idx}`}
                 onClick={() => goToPage(idx + 1)}
                 className={`px-3 py-1 text-sm rounded ${
                   currentPage === idx + 1
                     ? 'bg-blue-100 text-blue-400 font-bold rounded-md border-none'
                     : 'text-gray-500 hover:bg-gray-100 font-bold border-none bg-inherit'
                 }`}
+                type="button"
               >
                 {idx + 1}
               </button>
@@ -176,6 +180,7 @@ export const AdvancedTable = ({ data }) => {
               className="px-3 text-xsx text-gray-500 rounded font-bold disabled:opacity-50 bg-inherit border-none hover:not-disabled:text-gray-800"
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
+              type="button"
             >
               Next <i className="fa fa-chevron-right font-bold text-xs text-gray-400 pl-1"/>
             </button>
