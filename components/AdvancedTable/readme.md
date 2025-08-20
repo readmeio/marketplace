@@ -4,7 +4,7 @@
 
 AdvancedTables can be used to interact with tabular data. It supports real-time filtering, column sorting, pagination for large datasets, and CSV exporting.
 
-<img src="advanced-table.png" width="800" />
+<img alt="Table with filter, sorting, and pagination options" src="advanced-table.png" width="800" />
 
 ## Usage
 
