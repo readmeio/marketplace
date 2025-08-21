@@ -2,6 +2,8 @@
 
 Adds a Postman Run Button to your documentation, allowing users to fork a Postman collection.
 
+<img alt="Postman Run Button" src="postman-run-button.png" width="800" />
+
 ### Usage
 
 ```mdx

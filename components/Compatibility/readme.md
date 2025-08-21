@@ -2,11 +2,9 @@
 
 ## Overview
 
-If you have features that aren't available on every plan or configuration, this module is for you! You can list out plans and a true/false to indicate if it's available.
+Show compatibility across features, plans, or anything you need!
 
-_Coming Soon: Mobile support, darkmode, more options_
-
-![Compatibility](compat.png)
+![Compatibility](compatibility.png)
 
 ## Usage
 

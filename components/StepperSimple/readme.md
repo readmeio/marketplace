@@ -1,6 +1,6 @@
 # 🪜 Simple Stepper
 
-The **Simple Stepper** component provides basic "Next" and "Back" navigation for stepping through content.
+Provides basic "Next" and "Back" navigation for stepping through content.
 
 ![Stepper](stepper.png)
 

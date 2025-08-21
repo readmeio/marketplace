@@ -2,7 +2,7 @@
 
 ## Overview
 
-Tabs can be used to organize content into sections where only one is visible at a time, letting you switch between them for a cleaner and more interactive reading experience.
+Organize content into tabs to keep content tidy and navigable.
 
 <img src="tabs.png" width="800" />
 
