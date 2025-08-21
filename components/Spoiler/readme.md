@@ -1,6 +1,8 @@
 # Spoiler Component
 
-Conceal content behind a clickable overlay—perfect for hiding spoilers or sensitive information until the user chooses to reveal it.
+Conceal content behind a clickable overlay—perfect for hiding spoilers or sensitive information.
+
+<img alt="Hide spoiler text" src="spoiler.png" width="800" />
 
 ## Usage
 
