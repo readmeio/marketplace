@@ -5,10 +5,62 @@
 // version: "1.0.0"
 // ---
 
-export const StatusPage = ({ key }) => {
+import { useEffect, useState } from 'react';
+
+export const StatusPage = ({key}) => {
+  const [status, setStatus] = useState(null);
+  const [indicator, setIndicator] = useState(null);
+
+  function initStatusPage() {
+    const sp = new window.StatusPage.page({ page: key });
+    sp.status({
+      success(data) {
+        setStatus(data.status.description);
+        setIndicator(data.status.indicator);
+      },
+    });
+  }
+
+  useEffect(() => {
+    if (!key) return;
+
+    // load StatusPage script if not already loaded
+    if (!window.StatusPage) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.statuspage.io/se-v2.js';
+      script.async = true;
+      script.onload = () => initStatusPage();
+      document.body.appendChild(script);
+    } else {
+      initStatusPage();
+    }
+  }, [key]);
+
+  if (!status) {
+    return (
+      <div className="flex items-center space-x-2 text-gray-500">
+        <span className="w-2 h-2 rounded-full bg-gray-400 animate-pulse" />
+        <span>Loading status…</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex justify-center">
-      {key}
+    <div className="flex items-center space-x-2">
+      <span
+        className={`w-3 h-3 rounded-full ${
+          indicator === 'none'
+            ? 'bg-green-500'
+            : indicator === 'minor'
+            ? 'bg-yellow-500'
+            : indicator === 'major'
+            ? 'bg-orange-500'
+            : indicator === 'critical'
+            ? 'bg-red-600'
+            : 'bg-gray-400'
+        }`}
+      />
+      <span className="text-sm font-medium">{status}</span>
     </div>
   );
 };
