@@ -7,12 +7,12 @@
 
 import { useEffect, useState } from 'react';
 
-export const StatusPage = ({key}) => {
+export const StatusPage = ({apiKey}) => {
   const [status, setStatus] = useState(null);
   const [indicator, setIndicator] = useState(null);
 
   function initStatusPage() {
-    const sp = new window.StatusPage.page({ page: key });
+    const sp = new window.StatusPage.page({ page: apiKey });
     sp.status({
       success(data) {
         setStatus(data.status.description);
@@ -22,7 +22,7 @@ export const StatusPage = ({key}) => {
   }
 
   useEffect(() => {
-    if (!key) return;
+    if (!apiKey) return;
 
     // load StatusPage script if not already loaded
     if (!window.StatusPage) {
@@ -34,7 +34,7 @@ export const StatusPage = ({key}) => {
     } else {
       initStatusPage();
     }
-  }, [key]);
+  }, [apiKey]);
 
   if (!status) {
     return (
@@ -65,4 +65,4 @@ export const StatusPage = ({key}) => {
   );
 };
 
-<StatusPage key="123" />
+<StatusPage apiKey="123" />

@@ -9,11 +9,11 @@ A `<StatusPage />` can be used to display the current health, uptime, or inciden
 ## Usage
 
 ```mdx
-<StatusPage key="123" />
+<StatusPage apiKey="123" />
 ```
 
 ## Props
 
-| Prop  | Type   | Description      |
-| ----- | ------ | ---------------- |
-| `key` | number | The status code. |
+| Prop     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| `apiKey` | number | Your public page key. |
