@@ -5,13 +5,13 @@ export const Card = ({ children, href, icon, iconColor, target, title }) => {
   return (
     <Tag 
       className={`
-        rounded-md border border-gray-200 bg-white backdrop-blur-sm shadow-sm p-4 pb-0 dark:bg-inherit dark:border-white/10
+        rounded-md border border-gray-200 bg-white shadow-sm p-5 pb-0 dark:bg-inherit dark:border-white/10
         ${href && 'no-underline! text-inherit! hover:bg-gray-100 dark:hover:bg-white/10'}
       `} 
       href={href}
       target={target}
     >
-      {icon && <i className={`text-xl fa-duotone fa-solid ${icon} text-${iconColor} mb-4`}></i>}
+      {icon && <i className={`text-xl fa-duotone fa-solid ${icon} text-${iconColor} mb-3`}></i>}
       {title && <p className="text-gray-800 dark:text-white font-semibold">{title}</p>}
       <div className="text-gray-600 dark:text-gray-300">{children}</div>
     </Tag>
