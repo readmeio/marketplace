@@ -13,26 +13,26 @@ export const StatusPage = ({ title, url}) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!url) return;
     let isMounted = true;
 
-    const fetchStatus = async () => {
-      try {
-        const res = await fetch(`${url.replace(/\/$/, '')}/api/v2/status.json`);
-        if (!res.ok) throw new Error(`Failed to fetch status: ${res.status}`);
-        const data = await res.json();
-        if (!isMounted) return;
-        
-        setStatus(data.status.description);
-        setIndicator(data.status.indicator);
-      } catch (err) {
-        if (!isMounted) return;
-        
-        setError('Unable to fetch status');
-      }
-    };
-
-    fetchStatus();
+    if (url) {
+      const fetchStatus = async () => {
+        try {
+          const res = await fetch(`${url.replace(/\/$/, '')}/api/v2/status.json`);
+          if (!res.ok) throw new Error(`Failed to fetch status: ${res.status}`);
+          const data = await res.json();
+          if (!isMounted) return;
+          
+          setStatus(data.status.description);
+          setIndicator(data.status.indicator);
+        } catch (err) {
+          if (!isMounted) return;
+          
+          setError('Unable to fetch status');
+        }
+      };
+      fetchStatus();
+    }
     
     return () => {
       isMounted = false;
