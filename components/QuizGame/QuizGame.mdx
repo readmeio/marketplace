@@ -1,9 +1,9 @@
-// ---
-// title: "QuizGame"
-// description: "A multiple choice quiz game."
-// author: "@trishaprile"
-// version: "1.0.0"
-// ---
+---
+title: "QuizGame"
+description: "A multiple choice quiz game."
+author: "@trishaprile"
+version: "1.0.0"
+---
 
 import { useState } from 'react';
 
@@ -24,18 +24,18 @@ export const QuizGame = ({ question, options }) => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-inherit rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
-      <h3 className="mb-4 mt-0! text-center">{question}</h3>
+      <h3 className="mb-6! mt-0! text-center">{question}</h3>
       <div className="flex flex-col gap-2">
         {options.map((option, idx) => (
           <button
             key={idx}
             onClick={() => handleOptionClick(idx)}
             className={`
-            	text-sm text-left border-0 rounded-md p-[10px] bg-gray-100 text-gray-600
-							${!submitted && 'cursor-pointer hover:bg-gray-200'}
-              ${!submitted && selectedIndex === idx ? 'border! border-blue-400 bg-blue-200!' : 'border-gray-300'}
-              ${submitted && option.isCorrect ? 'border! bg-green-100 border-green-500' : ''}
-              ${submitted && selectedIndex === idx && !option.isCorrect ? 'border! bg-red-100 border-red-500' : ''}
+            	text-sm text-left border-0 rounded-md p-[10px] bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white
+							${!submitted && 'cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700'}
+              ${!submitted && selectedIndex === idx && 'border! border-blue-400 bg-blue-200! dark:bg-blue-900!'}
+              ${submitted && option.isCorrect && 'border! border-green-500 bg-green-100 dark:bg-green-900'}
+              ${submitted && selectedIndex === idx && !option.isCorrect && 'border! border-red-500 bg-red-100 dark:bg-red-900'}
             `}
           >
             {option.text}
@@ -47,8 +47,8 @@ export const QuizGame = ({ question, options }) => {
           onClick={handleSubmit}
           disabled={submitted || selectedIndex === null}
           className={`
-            mt-3 border-none p-3 font-semibold rounded-md
-            ${submitted || selectedIndex === null ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}
+            mt-3 border-none p-3 font-semibold rounded-md cursor-pointer
+            ${submitted || selectedIndex === null ? 'bg-gray-300 text-gray-400 cursor-not-allowed!' : 'bg-blue-500 text-white hover:bg-blue-600'}
           `}
         >
           Check Answer

@@ -2,7 +2,7 @@
 
 ## Overview
 
-A `<QuizGame />` can be used to render a question with multiple-choice answers, let the user select an option, and then check if the answer is correct.
+`<QuizGame />` can be used to display a question with multiple-choice answers, let the user select an option, and then check if the answer is correct.
 
 ## Usage
 
@@ -20,7 +20,7 @@ A `<QuizGame />` can be used to render a question with multiple-choice answers, 
 
 ## Props
 
-| Prop       | Type   | Description                     |
-| ---------- | ------ | ------------------------------- |
-| `question` | string | The title displayed at the top. |
-| `options`  | string | The title displayed at the top. |
+| Prop       | Type   | Description                                                                               |
+| ---------- | ------ | ----------------------------------------------------------------------------------------- |
+| `question` | string | The question displayed at the top of the quiz.                                            |
+| `options`  | array  | An array of answer options. Each object must have `{ text: string, isCorrect: boolean }`. |
