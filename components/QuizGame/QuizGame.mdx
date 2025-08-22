@@ -1,0 +1,83 @@
+---
+title: "QuizGame"
+description: "A multiple choice quiz game."
+author: "@trishaprile"
+version: "1.0.0"
+---
+
+import { useState } from 'react';
+
+export const QuizGame = ({ question, options }) => {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleOptionClick = (index) => {
+    if (submitted) return;
+    setSelectedIndex(index);
+  };
+
+  const handleSubmit = () => {
+    if (selectedIndex !== null) {
+      setSubmitted(true);
+    }
+  };
+
+   const handleReset = () => {
+    setSelectedIndex(null);
+    setSubmitted(false);
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-inherit rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
+      <h3 className="mb-6! mt-0! text-center">{question}</h3>
+      <div className="flex flex-col gap-2">
+        {options.map((option, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleOptionClick(idx)}
+            className={`
+            	text-sm text-left border-0 rounded-md p-[10px] bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-white
+							${!submitted && 'cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700'}
+              ${!submitted && selectedIndex === idx && 'border! border-blue-300 bg-blue-200! dark:bg-blue-900!'}
+              ${submitted && option.isCorrect && 'border! border-green-300 bg-green-100 dark:bg-green-900'}
+              ${submitted && selectedIndex === idx && !option.isCorrect && 'border! border-red-300 bg-red-100 dark:bg-red-900'}
+            `}
+          >
+            {option.text}
+          </button>
+        ))}
+      </div>
+      <div className="flex justify-end">
+        {!submitted ? (
+          <button
+            onClick={handleSubmit}
+            disabled={selectedIndex === null}
+            className={`
+              mt-3 border-none p-3 font-semibold rounded-md cursor-pointer
+              ${submitted || selectedIndex === null ? 'bg-gray-300 text-gray-400 cursor-not-allowed!' : 'bg-blue-500 text-white hover:bg-blue-600'}
+            `}
+          >
+            Check Answer
+          </button>
+				) : (
+          <button
+            onClick={handleReset}
+            className="mt-3 border-none py-3 px-7 font-semibold rounded-md cursor-pointer text-white bg-gray-500 hover:bg-gray-400"
+          >
+            <i className="fa-solid fa-refresh" /> Reset
+          </button>
+        )}
+			</div>
+    </div>
+  );
+};
+
+<QuizGame
+  question="What does DOM stand for?"
+  options={[
+    { text: 'Document Object Model', isCorrect: true },
+    { text: 'Data Object Model', isCorrect: false },
+    { text: 'Digital Oriented Model', isCorrect: false },
+    { text: 'Document Oriented Markup', isCorrect: false }
+  ]}
+/>
