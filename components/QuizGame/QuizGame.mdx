@@ -1,0 +1,69 @@
+// ---
+// title: "QuizGame"
+// description: "A multiple choice quiz game."
+// author: "@trishaprile"
+// version: "1.0.0"
+// ---
+
+import { useState } from 'react';
+
+export const QuizGame = ({ question, options }) => {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleOptionClick = (index) => {
+    if (submitted) return;
+    setSelectedIndex(index);
+  };
+
+  const handleSubmit = () => {
+    if (selectedIndex !== null) {
+      setSubmitted(true);
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-inherit rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
+      <h3 className="mb-4 mt-0! text-center">{question}</h3>
+      <div className="flex flex-col gap-2">
+        {options.map((option, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleOptionClick(idx)}
+            className={`
+            	text-sm text-left border-0 rounded-md p-[10px] bg-gray-100 text-gray-600
+							${!submitted && 'cursor-pointer hover:bg-gray-200'}
+              ${!submitted && selectedIndex === idx ? 'border! border-blue-400 bg-blue-200!' : 'border-gray-300'}
+              ${submitted && option.isCorrect ? 'border! bg-green-100 border-green-500' : ''}
+              ${submitted && selectedIndex === idx && !option.isCorrect ? 'border! bg-red-100 border-red-500' : ''}
+            `}
+          >
+            {option.text}
+          </button>
+        ))}
+      </div>
+			<div className="flex justify-end">
+        <button
+          onClick={handleSubmit}
+          disabled={submitted || selectedIndex === null}
+          className={`
+            mt-3 border-none p-3 font-semibold rounded-md
+            ${submitted || selectedIndex === null ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}
+          `}
+        >
+          Check Answer
+        </button>
+			</div>
+    </div>
+  );
+};
+
+<QuizGame
+  question="What does DOM stand for?"
+  options={[
+    { text: 'Document Object Model', isCorrect: true },
+    { text: 'Data Object Model', isCorrect: false },
+    { text: 'Digital Oriented Model', isCorrect: false },
+    { text: 'Document Oriented Markup', isCorrect: false }
+  ]}
+/>
