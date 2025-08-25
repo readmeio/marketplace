@@ -1,8 +1,9 @@
-# 🪜 Simple Stepper
+# `<SimpleStepper/>`
 
+## Overview
 Provides basic "Next" and "Back" navigation for stepping through content.
 
-![Stepper](stepper.png)
+<img alt="SimpleStepper" src="simple-stepper.png" width="800" />
 
 ## ✨ Features
 

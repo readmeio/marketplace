@@ -1,4 +1,6 @@
-# Spoiler Component
+# `<Spoiler/>`
+
+## Overview
 
 Conceal content behind a clickable overlay—perfect for hiding spoilers or sensitive information.
 
