@@ -1,4 +1,6 @@
-# KeyPress Component
+# `<KeyPress/>`
+
+## Overview
 
 Render children elements based on a specific key combination being pressed.
 

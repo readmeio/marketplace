@@ -1,4 +1,4 @@
-# `GitHubBadge`
+# `<GitHubBadge/>`
 
 ## Overview
 

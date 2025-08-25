@@ -1,4 +1,4 @@
-# `<Latex />`
+# `<Latex/>`
 
 ## Overview
 

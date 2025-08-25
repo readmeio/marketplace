@@ -1,8 +1,8 @@
-# AdvancedTable
+# `<AdvancedTable/>`
 
 ## Overview
 
-AdvancedTables can be used to interact with tabular data. It supports real-time filtering, column sorting, pagination for large datasets, and CSV exporting.
+Interact with tabular data that supports real-time filtering, column sorting, pagination for large datasets, and CSV exporting.
 
 <img alt="Table with filter, sorting, and pagination options" src="advanced-table.png" width="800" />
 

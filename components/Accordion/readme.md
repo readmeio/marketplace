@@ -1,8 +1,8 @@
-# Accordion
+# `<Accordion/>`
 
 ## Overview
 
-An accordion can be used to expand and collapse sections of content. You can add this customizable component to your docs to organize and display large amounts of information in a compact and interactive way.
+Expand and collapse sections of content to organize and display large amounts of information in a compact, interactive way.
 
 <img src="accordion.png" width="800" />
 
