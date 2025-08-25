@@ -1,6 +1,10 @@
-# KeyPress Component
+# `<KeyPress/>`
 
-The `KeyPress` component allows you to render children elements based on a specific key combination being pressed.
+## Overview
+
+Render children elements based on a specific key combination being pressed.
+
+<img alt="Show elements based on key combination pressed" src="key-press.png" width="800" />
 
 ## Usage
 

@@ -1,8 +1,8 @@
-# Banner
+# `<Banner/>`
 
 ## Overview
 
-Banners can be used to visually highlight important information, announcements, or calls to action directly inside a page. You can customize the message, text, and colors, as well as the position whether it's inline or at the top of the header.
+Visually highlight important information, announcements, or calls to action directly inside a page. Customize the message, text, and colors, as well as the position whether it's inline or at the top of the header.
 
 <img src="banner.png" width="800" />
 

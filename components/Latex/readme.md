@@ -1,8 +1,10 @@
-# `<Latex />`
+# `<Latex/>`
 
 ## Overview
 
-A component to render LaTeX syntax. (**Note**: this will fetch the `react-latex-next` package from a CDN on page load.)
+Render LaTeX syntax. (**Note**: this will fetch the `react-latex-next` package from a CDN on page load.)
+
+<img alt="Use LaTeX syntax with MDX" src="latex.png" width="800" />
 
 ## Usage
 

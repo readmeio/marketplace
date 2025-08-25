@@ -1,8 +1,10 @@
-# `ToggleList`
+# `<ToggleList/>`
 
 ## Overview
 
-This component allows you to create a list of items where each item's content can be toggled opened or closed. This can be useful for gradually introducing content. For example maybe you want to tuck away details that might overwhelm the reader if displayed all at once, or maybe you want to hide the punchline of a joke!
+Create a list of items that expand and collapse. Useful for gradually introducing content. For example maybe you want to tuck away details that might overwhelm the reader if displayed all at once, or maybe you want to hide the punchline of a joke!
+
+<img alt="Toggle List" src="toggle-list.png" width="800" />
 
 ## Usage
 

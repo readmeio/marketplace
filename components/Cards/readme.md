@@ -1,8 +1,8 @@
-# Cards
+# `<Cards/>`
 
 ## Overview
 
-Cards can be used to display content in an organized grid layout. Each card can contain a title, icon, and descriptive text, and optionally link to another page. It's useful for showcasing features, links, or grouped information in a visually structured way.
+Display content in an organized grid layout. Each card can include a title, icon, and description, and optional link. This is great for showcasing features, links, or grouped information clearly.
 
 <img src="cards.png" width="800" />
 
