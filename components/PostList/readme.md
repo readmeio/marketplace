@@ -4,6 +4,8 @@
 
 Fetch and display a list of posts from an API endpoint with a loading indicator while fetching and handles errors. Ideal for demonstrating async data fetching with React hooks and Tailwind CSS styling.
 
+<img src="post-list.png" width="800" />
+
 ## Usage
 
 | Prop | Type   | Required | Default                                                     | Description                     |
