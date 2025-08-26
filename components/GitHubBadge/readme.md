@@ -1,8 +1,10 @@
-# `GitHubBadge`
+# `<GitHubBadge/>`
 
 ## Overview
 
-This component displays a badge that links to a GitHub actions workflow status. It is useful for showing the status of a CI/CD pipeline or other automated workflows.
+Display a badge that links to a GitHub actions workflow status, useful for showing the status of automated workflows.
+
+<img alt="GitHub Badge" src="github-badge.png" width="800" />
 
 ## Usage
 

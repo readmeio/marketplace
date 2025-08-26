@@ -1,8 +1,8 @@
-# `<Terminal>`
+# `<Terminal/>`
 
 ## Overview
 
-This component makes it easy to include a nice-looking faux Terminal window in your docs, to show input and output from a CLI. The input lines also have a copy button, to make it easy to run the commands yourself.
+Include a nice-looking faux Terminal window in your docs, to show input and output from a CLI. The input lines also have a copy button, to make it easy to run the commands yourself.
 
 ![Terminal](terminal.png)
 

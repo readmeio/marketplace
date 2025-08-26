@@ -1,8 +1,10 @@
-# QuizGame
+# `<QuizGame/>`
 
 ## Overview
 
-`<QuizGame />` can be used to display a question with multiple-choice answers, let the user select an option, and then check if the answer is correct.
+Display a question with multiple-choice answers, let the user select an option, and check if the answer is correct.
+
+<img src="quiz-game.png" width="800" />
 
 ## Usage
 

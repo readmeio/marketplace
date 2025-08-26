@@ -1,8 +1,8 @@
-# Windows
+# `<Windows/>`
 
 ## Overview
 
-This component brings a retro Windows vibe to your docs.
+Bring a retro Windows vibe to your docs.
 
 ![Windows](windows.png)
 

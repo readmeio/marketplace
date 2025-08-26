@@ -1,8 +1,10 @@
-# PostList
+# `<PostList/>`
 
 ## Overview
 
-The **PostList** component fetches and displays a list of posts from an API endpoint. It shows a loading indicator while fetching and handles errors. Ideal for demonstrating async data fetching with React hooks and Tailwind CSS styling.
+Fetch and display a list of posts from an API endpoint with a loading indicator while fetching and handles errors. Ideal for demonstrating async data fetching with React hooks and Tailwind CSS styling.
+
+<img src="post-list.png" width="800" />
 
 ## Usage
 

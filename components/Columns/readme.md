@@ -1,8 +1,8 @@
-# Columns
+# `<Columns/>`
 
 ## Overview
 
-Columns can be used to arrange content side by side in a responsive grid layout. You can create multi-column sections that support both fixed-width and auto-sizing layouts in your docs. 
+Arrange content side-by-side in a responsive grid layout. Create multi-column sections that support both fixed-width and auto-sizing layouts in your docs. 
 
 <img src="columns.png" width="800" />
 
