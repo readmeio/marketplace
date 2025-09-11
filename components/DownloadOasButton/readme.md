@@ -9,7 +9,7 @@ Add an OpenAPI Download Button to your documentation, allowing users to download
 Usage
 
 ```mdx
-<DownloadOasButton url="https://your-domain.com/openapi.json" />
+<DownloadOasButton url="https://your-domain.com/openapi/openapi.json" />
 ```
 
 ### How to Find Your OpenAPI URL
