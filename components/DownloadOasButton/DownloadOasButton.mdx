@@ -1,20 +1,18 @@
 ---
-title: "DownloadOas"
+title: "DownloadOasButton"
 description: "Button for downloading the OpenAPI file."
 author: "ReadMe"
 version: "2.0.0"
 license: "MIT"
 ---
 
-import React from "react";
-
 export const DownloadOasButton = ({ url }) => {
   const getFileNameFromUrl = (link) => {
     try {
       const pathname = new URL(link).pathname;
-      return pathname.split("/").pop() || "openapi.json";
+      return pathname.split('/').pop() || 'openapi.json';
     } catch {
-      return "openapi.json";
+      return 'openapi.json';
     }
   };
 
@@ -22,13 +20,13 @@ export const DownloadOasButton = ({ url }) => {
     const fileName = getFileNameFromUrl(url);
 
     try {
-      const res = await fetch(url, { mode: "cors" });
+      const res = await fetch(url, { mode: 'cors' });
       if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
       const blob = await res.blob();
       const objectUrl = URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = objectUrl;
       link.download = fileName;
       document.body.appendChild(link);
@@ -37,8 +35,8 @@ export const DownloadOasButton = ({ url }) => {
 
       URL.revokeObjectURL(objectUrl);
     } catch (err) {
-      console.error("Failed to download file:", err);
-      window.open(url, "_blank", "noopener,noreferrer");
+      console.error('Failed to download file:', err);
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
   };
 
