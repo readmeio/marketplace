@@ -29,7 +29,7 @@ Please read our [Contribution Guidelines](https://github.com/readmeio/marketplac
 <details>
   <summary><b>Stay tuned!</b> We have big plans for the ReadMe Marketplace, so check back soon.</summary><br />
 
-- [ ] install Marketplace components directly from your ReadMe project
+- [x] install Marketplace components directly from your ReadMe project ([How to Add a Component to Your Documentation](https://readme.com/blog/component-marketplace))
 - [ ] expanded offering, including integrations for third party services and more
 
 </details>
