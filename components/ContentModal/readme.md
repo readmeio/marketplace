@@ -2,7 +2,7 @@
 
 ## Overview
 
-A lightweight, theme-aware modal component for displaying custom content in an overlay-style container that sits on top of your guides page. Perfect for showcasing additional information, confirmations, or details without navigating away from the current view.
+Display custom content in an overlay-style container that sits on top of your guides page.
 
 <img src="content-modal.png" width="800" />
 
