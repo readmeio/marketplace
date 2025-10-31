@@ -1,15 +1,15 @@
-# `<DownloadOasButton/>`
+# `<DownloadOASButton/>`
 
 Overview
 
-Add an OpenAPI Download Button to your documentation, allowing users to download your OpenAPI JSON file with one click.
+Adds an OpenAPI Download Button to your documentation, allowing users to download your OpenAPI JSON file with one click.
 
 <img alt="OpenAPI Download Button" src="download-oas-button.png" width="800" />
 
 Usage
 
 ```mdx
-<DownloadOasButton url="https://your-domain.com/openapi/openapi.json" />
+<DownloadOASButton url="https://your-domain.com/openapi/openapi.json" />
 ```
 
 ### How to Find Your OpenAPI URL

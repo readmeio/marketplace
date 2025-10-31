@@ -1,11 +1,11 @@
 ---
-title: "DownloadOasButton"
-description: "Button for downloading the OpenAPI file."
+title: "DownloadOASButton"
+description: "A button for downloading an OpenAPI file."
 author: "@olehshh"
 version: "1.0.0"
 ---
 
-export const DownloadOasButton = ({ url }) => {
+export const DownloadOASButton = ({ url }) => {
   const getFileNameFromUrl = (link) => {
     try {
       const pathname = new URL(link).pathname;
@@ -46,7 +46,7 @@ export const DownloadOasButton = ({ url }) => {
         flex items-center gap-3 px-6 py-3
         bg-[#6BA539] hover:bg-[#5a8f30]
         text-white font-semibold rounded-full
-        shadow-md hover:shadow-lg
+        shadow-md hover:shadow-lg cursor-pointer
         transform hover:scale-105 transition duration-300
       "
     >
@@ -55,4 +55,4 @@ export const DownloadOasButton = ({ url }) => {
   );
 };
 
-<DownloadOasButton url="https://demo-url.readme.io/openapi/openapi.json" />
+<DownloadOASButton url="https://demo-url.readme.io/openapi/openapi.json" />
