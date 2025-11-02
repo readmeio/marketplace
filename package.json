@@ -3,7 +3,8 @@
   "scripts": {
     "lint": "eslint . --ext .mdx",
     "pretest": "npm run lint",
-    "prettier": "prettier --check --write ."
+    "prettier": "prettier --check --write .",
+    "test": ""
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.5",
