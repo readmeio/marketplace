@@ -25,12 +25,14 @@ export const ContentModal = ({
 
   // ESC to close
   useEffect(() => {
-    if (!open) return;
+    if (!open) return undefined;
     const onKey = (e) => {
       if (e.key === 'Escape') setOpen(false);
     };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+    };
   }, [open]);
 
   return (
@@ -47,6 +49,7 @@ export const ContentModal = ({
       <div
         className="fixed inset-0 z-40 before:content-[''] before:absolute before:inset-0 before:bg-black/50 before:backdrop-blur"
         style={{ display: open ? 'block' : 'none' }}
+        aria-hidden="true"
       />
 
       {/* Dialog Wrapper */}
@@ -54,13 +57,19 @@ export const ContentModal = ({
         className="fixed inset-0 flex items-center justify-center p-6 z-50"
         style={{ display: open ? 'flex' : 'none' }}
         onClick={() => setOpen(false)}
+        onKeyDown={(e) => e.key === 'Enter' && setOpen(false)}
+        role="button"
+        tabIndex={-1}
+        aria-label="Close modal"
       >
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <div
           className={`${sizeClasses[size]} w-full max-h-[86vh] bg-white dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col`}
           role="dialog"
           aria-modal="true"
           aria-label={title}
           onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
@@ -92,9 +101,7 @@ export const ContentModal = ({
   title="Content Modal"
   size="md"
   buttonColor="#0B1440"
-  content="
-    The ContentModal component can be used to display information in a focused, overlay-style container that sits on top of your guides page. 
-Modals are typically used to draw attention to important actions, confirmations, or details without navigating away from the current view. 
-Users can close it by clicking outside, pressing ESC, or selecting the close button.
-  "
+  content={`The ContentModal component can be used to display information in a focused, overlay-style container that sits on top of your guides page. 
+  Modals are typically used to draw attention to important actions, confirmations, or details without navigating away from the current view. 
+  Users can close it by clicking outside, pressing ESC, or selecting the close button.`}
 />
