@@ -1,202 +1,255 @@
-export const McpInstallInstructions = ({ name, url }) => {
-  // Cursor requires a base64 encoded config object for its deep link
-  // Using a try/catch fallback for server-side rendering safety regarding 'window'
-  let cursorConfig = '';
-  try {
-     if (typeof window !== 'undefined' && window.btoa) {
-         cursorConfig = window.btoa(JSON.stringify({ url }));
-     } else if (typeof Buffer !== 'undefined') {
-         cursorConfig = Buffer.from(JSON.stringify({ url })).toString('base64');
-     }
-  } catch (e) {
-      console.error('Failed to define base64 for cursor config', e);
-  }
+import React, { useState } from 'react';
 
-  // Helper to safely encode URI components for deep links
+export const McpInstallInstructions = ({ name, url }) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+
+  const encodeToBase64 = (data) => {
+    try {
+      if (typeof window !== 'undefined' && window.btoa) {
+        return window.btoa(JSON.stringify(data));
+      } else if (typeof Buffer !== 'undefined') {
+        return Buffer.from(JSON.stringify(data)).toString('base64');
+      }
+    } catch (e) {
+      console.error('Failed to encode to base64', e);
+    }
+    return '';
+  };
+
+
+  const cardClass = 'p-6 border rounded-lg bg-white shadow-sm dark:bg-inherit border-gray-200 dark:border-white/10';
+  const headingClass = 'font-semibold mb-4 text-base text-gray-800 dark:text-white';
+  const codeBlockClass = 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4 rounded-lg overflow-x-auto text-sm border border-gray-200 dark:border-gray-700 shadow-sm';
+  const inlineCodeClass = 'font-mono bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded text-sm border border-gray-300 dark:border-gray-700';
+  const textClass = 'text-sm leading-relaxed';
+
+
+
+  // Disable lint because these are used by the Tabs component
+  // eslint-disable-next-line no-unused-vars
+  const Tab = ({ children, title = '', icon = '', iconColor = '' }) => <div>{children}</div>;
+
+  const Tabs = ({ children }) => {
+    const baseTabClass = 'bg-inherit border-0 font-semibold text-sm cursor-pointer mr-4 pb-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300';
+    const activeTabClass = 'text-gray-700 -mb-1 border-b-1 border-gray-600 dark:text-white dark:border-white';
+
+    return (
+      <div>
+        <header>
+          <nav className="border-b border-gray-200 dark:border-gray-700 mb-4">
+            {children?.map((tab, index) => {
+              const isActive = activeTab === index;
+              return (
+                <button
+                  key={tab.props.title}
+                  className={`${baseTabClass} ${isActive ? activeTabClass : ''}`}
+                  onClick={() => setActiveTab(index)}
+                >
+                  {tab.props.icon && (
+                    <i className={`fa-duotone fa-solid ${tab.props.icon} text-${tab.props.iconColor} mr-2`}></i>
+                  )}
+                  {tab.props.title}
+                </button>
+              );
+            })}
+          </nav>
+        </header>
+        <section>{children && children[activeTab]}</section>
+      </div>
+    );
+  };
+
+  const Card = ({ children, spacing = 'space-y-6' }) => (
+    <div className={cardClass}>
+      <div className={`${spacing} text-gray-600 dark:text-gray-300`}>
+        {children}
+      </div>
+    </div>
+  );
+
+  const SectionHeading = ({ children }) => (
+    <h4 className={headingClass}>{children}</h4>
+  );
+
+  const CodeBlock = ({ children, className = '' }) => (
+    <pre className={`${codeBlockClass} ${className}`}>
+      <code>{children}</code>
+    </pre>
+  );
+
+  const InlineCode = ({ children }) => (
+    <code className={inlineCodeClass}>{children}</code>
+  );
+
+  const Paragraph = ({ children, className = '' }) => (
+    <p className={`${textClass} ${className}`}>{children}</p>
+  );
+
+  const InstallationLink = ({ href, imgSrc, alt }) => (
+    <a className="inline-block transition-opacity hover:opacity-80 mb-2" href={href}>
+      <img src={imgSrc} alt={alt} className="h-8" />
+    </a>
+  );
+
+
+  const cursorConfig = encodeToBase64({ url });
   const safeName = encodeURIComponent(name);
-  // Ensure the base64 config is safely encoded for the URL query parameter
   const safeCursorConfig = encodeURIComponent(cursorConfig);
 
-  // Shared Tailwind classes for consistent styling
-  const detailsClass = 'group p-4 border rounded-lg bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 transition-colors duration-200';
-  // Added [&::-webkit-details-marker]:hidden to remove the default chevron
-  const summaryClass = 'cursor-pointer font-bold flex items-center justify-between list-none [&::-webkit-details-marker]:hidden text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 rounded';
-  const chevronClass = 'text-gray-400 dark:text-gray-500 transform transition-transform duration-200 group-open:rotate-180';
-  const contentContainerClass = 'mt-4 space-y-4 text-gray-700 dark:text-gray-300';
-  const h4Class = 'font-semibold mb-2 text-gray-900 dark:text-white';
-  // Updated to be dark by default for better contrast on the dark card
-  const preClass = 'bg-gray-800 text-gray-100 p-3 rounded overflow-x-auto text-sm border border-gray-700';
-  // Updated to be dark by default for better contrast on the dark card
-  const inlineCodeClass = 'font-mono bg-gray-800 text-gray-200 px-1.5 py-0.5 rounded text-sm border border-gray-700';
-
   return (
-    <div className="space-y-4 font-sans">
-      {/* Cursor */}
-      <details className={detailsClass} open>
-        <summary className={summaryClass}>
-          <span>Cursor</span>
-          <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <div>
-            <h4 className={h4Class}>Installation Link</h4>
-            <a className="inline-block transition-opacity hover:opacity-80" href={`cursor://anysphere.cursor-deeplink/mcp/install?name=${safeName}&config=${safeCursorConfig}`}>
-              <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" className="h-8" />
-            </a>
-          </div>
-          <div>
-            <h4 className={h4Class}>Manual Installation</h4>
-            <p className="mb-2 text-sm">Add the following to your <code className={inlineCodeClass}>mcp.json</code> file:</p>
-            <pre className={preClass}>
-              <code>{JSON.stringify({
+    <div className="font-sans">
+      <Tabs>
+        <Tab title="Cursor">
+          <Card>
+            <div>
+              <SectionHeading>Installation Link</SectionHeading>
+              <InstallationLink
+                href={`cursor://anysphere.cursor-deeplink/mcp/install?name=${safeName}&config=${safeCursorConfig}`}
+                imgSrc="https://cursor.com/deeplink/mcp-install-dark.svg"
+                alt="Add to Cursor"
+              />
+            </div>
+            <div>
+              <SectionHeading>Manual Installation</SectionHeading>
+              <Paragraph className="mb-4">
+                Add the following to your <InlineCode>mcp.json</InlineCode> file:
+              </Paragraph>
+              <CodeBlock>
+                {JSON.stringify({
+                  mcpServers: {
+                    [name || '"undefined"']: {
+                      url
+                    }
+                  }
+                }, null, 2)}
+              </CodeBlock>
+            </div>
+          </Card>
+        </Tab>
+
+        <Tab title="VSCode">
+          <Card>
+            <div>
+              <SectionHeading>Installation Link</SectionHeading>
+              <InstallationLink
+                href={`https://insiders.vscode.dev/redirect?url=vscode:mcp/install?${encodeURIComponent(JSON.stringify({ type: 'http', name, url }))}`}
+                imgSrc="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=for-the-badge&logo=visual-studio-code&logoColor=white"
+                alt="Install in VS Code"
+              />
+            </div>
+            <div>
+              <SectionHeading>Manual Installation</SectionHeading>
+              <Paragraph className="mb-4">Open a terminal and run the following command:</Paragraph>
+              <CodeBlock>
+                {`code --add-mcp '${JSON.stringify({ type: 'http', name, url })}'`}
+              </CodeBlock>
+              <Paragraph className="mt-4">
+                Then, from inside VS Code, open the <InlineCode>.vscode/mcp.json</InlineCode> file and click &quot;Start server&quot;.
+              </Paragraph>
+            </div>
+          </Card>
+        </Tab>
+
+        <Tab title="Claude Code">
+          <Card spacing="space-y-4">
+            <Paragraph>Open a terminal and run the following command:</Paragraph>
+            <CodeBlock>
+              {`claude mcp add --transport http ${name} ${url}`}
+            </CodeBlock>
+            <Paragraph className="mt-4">
+              From within Claude Code, you can use the <InlineCode>/mcp</InlineCode> command to get more information about the server.
+            </Paragraph>
+          </Card>
+        </Tab>
+
+        <Tab title="Claude Desktop">
+          <Card spacing="space-y-4">
+            <Paragraph>
+              Open Claude Desktop and navigate to <span className="font-semibold">Settings &gt; Connectors &gt; Add Custom Connector</span>.
+            </Paragraph>
+            <Paragraph className="mt-4">
+              Enter the name as <InlineCode>{name}</InlineCode> and the remote MCP server URL as <InlineCode>{url}</InlineCode>.
+            </Paragraph>
+          </Card>
+        </Tab>
+
+        <Tab title="Windsurf">
+          <Card spacing="space-y-4">
+            <Paragraph>Copy the following JSON to your Windsurf MCP config file:</Paragraph>
+            <CodeBlock className="mt-4">
+              {JSON.stringify({
                 mcpServers: {
-                  [name || '"undefined"']: {
-                    url
+                  [name]: {
+                    serverUrl: url
                   }
                 }
-              }, null, 2)}</code>
-            </pre>
-          </div>
-        </div>
-      </details>
+              }, null, 2)}
+            </CodeBlock>
+          </Card>
+        </Tab>
 
-      {/* VSCode */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>VSCode</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <div>
-            <h4 className={h4Class}>Installation Link</h4>
-            <a className="inline-block transition-opacity hover:opacity-80" href={`https://insiders.vscode.dev/redirect?url=vscode:mcp/install?${encodeURIComponent(JSON.stringify({ type: 'http', name, url }))}`}>
-              <img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Install in VS Code" className="h-8"/>
-            </a>
-          </div>
-          <div>
-            <h4 className={h4Class}>Manual Installation</h4>
-            <p className="mb-2 text-sm">Open a terminal and run the following command:</p>
-            <pre className={preClass}>
-              <code>code --add-mcp &apos;{JSON.stringify({ type: 'http', name, url })}&apos;</code>
-            </pre>
-            <p className="mt-3 text-sm">Then, from inside VS Code, open the <code className={inlineCodeClass}>.vscode/mcp.json</code> file and click &quot;Start server&quot;.</p>
-          </div>
-        </div>
-      </details>
+        <Tab title="ChatGPT">
+          <Card spacing="space-y-4">
+            <p className="italic text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
+              Note: In Team, Enterprise, and Edu workspaces, only workspace owners and admins have permission
+            </p>
+            <ul className="list-disc pl-6 space-y-3 mt-2">
+              <li className="leading-relaxed">
+                Navigate to <strong className="text-gray-800 dark:text-white">Settings &gt; Connectors</strong>
+              </li>
+              <li className="leading-relaxed">
+                Add a custom connector with the server URL: <InlineCode>{url}</InlineCode>
+              </li>
+              <li className="leading-relaxed">It should then be visible in the Composer &gt; Deep research tool</li>
+              <li className="leading-relaxed">You may need to add the server as a source</li>
+            </ul>
+            <p className="italic font-semibold mt-4 text-gray-800 dark:text-white leading-relaxed">
+              Connectors can only be used with Deep Research
+            </p>
+          </Card>
+        </Tab>
 
-      {/* Claude Code */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>Claude Code</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <p className="text-sm">Open a terminal and run the following command:</p>
-          <pre className={preClass}>
-            <code>claude mcp add --transport http {name} {url}</code>
-          </pre>
-          <p className="text-sm mt-3">From within Claude Code, you can use the <code className={inlineCodeClass}>/mcp</code> command to get more information about the server.</p>
-        </div>
-      </details>
-
-      {/* Claude Desktop */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>Claude Desktop</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <p>Open Claude Desktop and navigate to <span className="font-semibold">Settings &gt; Connectors &gt; Add Custom Connector</span>.</p>
-          <p className="mt-2">Enter the name as <code className={inlineCodeClass}>{name}</code> and the remote MCP server URL as <code className={inlineCodeClass}>{url}</code>.</p>
-        </div>
-      </details>
-
-      {/* Windsurf */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>Windsurf</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <p className="text-sm">Copy the following JSON to your Windsurf MCP config file:</p>
-          <pre className={`${preClass  } mt-2`}>
-            <code>{JSON.stringify({
-              mcpServers: {
-                [name]: {
-                  serverUrl: url
-                }
-              }
-            }, null, 2)}</code>
-          </pre>
-        </div>
-      </details>
-
-      {/* ChatGPT */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>ChatGPT</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={`${contentContainerClass  } text-sm`}>
-          <p className="italic text-gray-600 dark:text-gray-400">Note: In Team, Enterprise, and Edu workspaces, only workspace owners and admins have permission</p>
-          <ul className="list-disc pl-5 space-y-2 mt-2">
-            <li>Navigate to <strong className="text-gray-900 dark:text-white">Settings &gt; Connectors</strong></li>
-            <li>Add a custom connector with the server URL: <code className={inlineCodeClass}>{url}</code></li>
-            <li>It should then be visible in the Composer &gt; Deep research tool</li>
-            <li>You may need to add the server as a source</li>
-          </ul>
-          <p className="italic font-semibold mt-3 text-gray-900 dark:text-white">Connectors can only be used with Deep Research</p>
-        </div>
-      </details>
-
-      {/* Gemini CLI */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>Gemini CLI</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <p className="text-sm">Add the following JSON to your Gemini CLI configuration file (<code className={inlineCodeClass}>~/.gemini/settings.json</code>):</p>
-          <pre className={`${preClass  } mt-2`}>
-            <code>{JSON.stringify({
-              mcpServers: {
-                [name]: {
-                  httpUrl: url,
-                  headers: {
-                    Accept: 'application/json, text/event-stream'
+        <Tab title="Gemini CLI">
+          <Card spacing="space-y-4">
+            <Paragraph>
+              Add the following JSON to your Gemini CLI configuration file (<InlineCode>~/.gemini/settings.json</InlineCode>):
+            </Paragraph>
+            <CodeBlock className="mt-4">
+              {JSON.stringify({
+                mcpServers: {
+                  [name]: {
+                    httpUrl: url,
+                    headers: {
+                      Accept: 'application/json, text/event-stream'
+                    }
                   }
                 }
-              }
-            }, null, 2)}</code>
-          </pre>
-        </div>
-      </details>
+              }, null, 2)}
+            </CodeBlock>
+          </Card>
+        </Tab>
 
-      {/* Codex */}
-      <details className={detailsClass}>
-        <summary className={summaryClass}>
-            <span>Codex</span>
-            <span className={chevronClass}>▼</span>
-        </summary>
-        <div className={contentContainerClass}>
-          <h4 className={h4Class}>Manual installation</h4>
-          <p className="text-sm">Requirements: <span className={inlineCodeClass}>Docker</span></p>
-          <p className="text-sm mt-3">Add the following to your codex config file (<code className={inlineCodeClass}>~/.codex/config.toml</code>):</p>
-          <pre className={`${preClass  } mt-2`}>
-            <code>{`[mcp_servers.${name}]
+        <Tab title="Codex">
+          <Card spacing="space-y-4">
+            <SectionHeading>Manual installation</SectionHeading>
+            <Paragraph>
+              Requirements: <InlineCode>Docker</InlineCode>
+            </Paragraph>
+            <Paragraph className="mt-4">
+              Add the following to your codex config file (<InlineCode>~/.codex/config.toml</InlineCode>):
+            </Paragraph>
+            <CodeBlock className="mt-4">
+              {`[mcp_servers.${name}]
 command = "docker"
-args = ["run", "--rm", "-t", "ghcr.io/sparfenyuk/mcp-proxy:v0.3.2-alpine", "${url}", "--transport=streamablehttp"]`}</code>
-          </pre>
-          <p className="font-bold mt-3 text-sm text-gray-900 dark:text-white">Note: Codex does not support MCP servers with OAuth2 authentication.</p>
-        </div>
-      </details>
-
-      <div className="flex items-center justify-end gap-2 mt-6">
-        <span className="text-xs text-gray-500 dark:text-gray-400">by</span>
-        <a href="https://hyprmcp.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-          <img src="https://hyprmcp.com/hyprmcp_20px.svg" alt="Hypr MCP" className="h-5 opacity-80 dark:opacity-100" />
-        </a>
-      </div>
+args = ["run", "--rm", "-t", "ghcr.io/sparfenyuk/mcp-proxy:v0.3.2-alpine", "${url}", "--transport=streamablehttp"]`}
+            </CodeBlock>
+            <p className="font-semibold mt-4 text-sm text-gray-800 dark:text-white leading-relaxed">
+              Note: Codex does not support MCP servers with OAuth2 authentication.
+            </p>
+          </Card>
+        </Tab>
+      </Tabs>
     </div>
   );
 };
