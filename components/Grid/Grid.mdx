@@ -1,0 +1,36 @@
+---
+title: "Grid"
+description: "Organize content into a grid layout for structured layouts."
+author: "ReadMe"
+version: "1.0.0"
+license: "MIT"
+---
+
+export const Grid = ({ columns = 2, children, gap, gapX, gapY, padding, paddingX, paddingY, style }) => {
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `repeat(${columns >= 2 ? columns : 2}, 1fr)`,
+    gap: gap || '0',  // This sets both row and column gap
+    columnGap: gapX || gap || '0',  // Fallback to gap if gapX is not provided
+    rowGap: gapY || gap || '0',     // Fallback to gap if gapY is not provided
+    padding: padding || '0',
+    paddingLeft: paddingX || '0',
+    paddingRight: paddingX || '0',
+    paddingTop: paddingY || '0',
+    paddingBottom: paddingY || '0',
+    ...style,
+  };
+
+  return (
+    <div style={gridStyle}>
+      {children}
+    </div>
+  );
+};
+
+<Grid columns={2} gap="20px">
+  <div>item one</div>
+  <div>item two</div>
+  <div>item three</div>
+  <div>item four</div>
+</Grid>
