@@ -5,9 +5,9 @@ author: "ReadMe"
 version: "1.0.0"
 license: "MIT"
 ---
-import React, { useState, Children, isValidElement, cloneElement } from "react";
+import React, { useState, Children, isValidElement, cloneElement } from 'react';
 
-export const Steps = ({ name = "steps", children }) => {
+export const Steps = ({ name = 'steps', children }) => {
   const childArray = Children.toArray(children);
   const count = childArray.length;
   
@@ -32,8 +32,8 @@ export const Steps = ({ name = "steps", children }) => {
 export const Step = ({
   number,
   stepIndex = 0,
-  title = "",
-  stepsName = "steps",
+  title = '',
+  stepsName = 'steps',
   isFirst = false,
   isLast = false,
   children,
@@ -142,6 +142,6 @@ const response = await fetch('https://api.acme.com/v1/data', {
   </Step>
 
   <Step title="Make your first API call">
-    You're all set! Start making requests to the Acme API.
+    You&apos;re all set! Start making requests to the Acme API.
   </Step>
 </Steps>
